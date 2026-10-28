@@ -21,6 +21,13 @@ class MemoryStore {
     this.caseActions = [];
     this.matchAlerts = new Map();
     this.caseLinks = new Map();
+    this.notifications = new Map();
+    this.workflowConfig = new Map([
+      ['REQUIRE_CLOSURE_REVIEW', 'false'],
+      ['SLA_STANDARD_DAYS', '30'],
+      ['SLA_HIGH_DAYS', '14'],
+      ['SLA_CRITICAL_DAYS', '7']
+    ]);
   }
 
   // --- Users ---
@@ -399,6 +406,81 @@ class MemoryStore {
 
   listCaseLinks() {
     return Array.from(this.caseLinks.values()).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  }
+
+  // --- Notifications ---
+  createNotification(notifData) {
+    const id = notifData.id || crypto.randomUUID();
+    const record = {
+      id,
+      user_id: notifData.user_id,
+      event_type: notifData.event_type,
+      title: notifData.title,
+      message: notifData.message,
+      complaint_id: notifData.complaint_id || null,
+      case_id: notifData.case_id || null,
+      read_status: Boolean(notifData.read_status),
+      navigation_url: notifData.navigation_url || `/app/complaints/${notifData.complaint_id}`,
+      created_at: new Date().toISOString()
+    };
+    this.notifications.set(id, record);
+    return { ...record };
+  }
+
+  findNotificationsByUser(userId, { unreadOnly = false, limit = 50 } = {}) {
+    let list = Array.from(this.notifications.values()).filter(n => n.user_id === userId);
+    if (unreadOnly) {
+      list = list.filter(n => !n.read_status);
+    }
+    return list
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      .slice(0, limit);
+  }
+
+  markNotificationAsRead(id, userId) {
+    const notif = this.notifications.get(id);
+    if (!notif) return null;
+    if (userId && notif.user_id !== userId) return null;
+    notif.read_status = true;
+    this.notifications.set(id, notif);
+    return { ...notif };
+  }
+
+  markAllNotificationsAsRead(userId) {
+    let updated = 0;
+    for (const notif of this.notifications.values()) {
+      if (notif.user_id === userId && !notif.read_status) {
+        notif.read_status = true;
+        this.notifications.set(notif.id, notif);
+        updated++;
+      }
+    }
+    return updated;
+  }
+
+  countUnreadNotifications(userId) {
+    return Array.from(this.notifications.values()).filter(n => n.user_id === userId && !n.read_status).length;
+  }
+
+  hasRecentNotification(complaintId, eventType, windowHours = 24) {
+    const cutoff = new Date(Date.now() - windowHours * 60 * 60 * 1000).toISOString();
+    return Array.from(this.notifications.values()).some(
+      n => n.complaint_id === complaintId && n.event_type === eventType && n.created_at >= cutoff
+    );
+  }
+
+  // --- Workflow Config ---
+  getWorkflowConfig(key, defaultValue = null) {
+    return this.workflowConfig.has(key) ? this.workflowConfig.get(key) : defaultValue;
+  }
+
+  setWorkflowConfig(key, value) {
+    this.workflowConfig.set(key, String(value));
+    return { key, value: String(value) };
+  }
+
+  getAllWorkflowConfigs() {
+    return Object.fromEntries(this.workflowConfig);
   }
 }
 

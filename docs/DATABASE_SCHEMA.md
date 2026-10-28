@@ -107,21 +107,34 @@ Immutable chronological audit history of operations on a complaint.
 * `performed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ### 2.7 `notifications`
-In-app alerts for officers.
+Persistent in-app alerts and task notifications for officers and administrators.
 * `id` VARCHAR(36) PRIMARY KEY
 * `user_id` VARCHAR(36) NOT NULL (FK -> `users.id`)
-* `type` ENUM('OVERLAP_ALERT', 'SLA_WARNING', 'SLA_OVERDUE', 'CASE_ASSIGNMENT', 'CASE_ESCALATION') NOT NULL
-* `title` VARCHAR(200) NOT NULL
+* `event_type` ENUM('ASSIGNMENT_CHANGED', 'CASE_TRANSFERRED', 'DUE_DATE_REMINDER', 'CASE_OVERDUE', 'CASE_ESCALATED', 'MATCH_REVIEW_TASK', 'CLOSURE_APPROVAL_REQUEST', 'CASE_REOPENED') NOT NULL
+* `title` VARCHAR(255) NOT NULL
 * `message` TEXT NOT NULL
-* `related_case_id` VARCHAR(36) NULL
-* `is_read` BOOLEAN DEFAULT FALSE
+* `complaint_id` VARCHAR(36) NULL (FK -> `complaints.id`)
+* `case_id` VARCHAR(50) NULL
+* `read_status` BOOLEAN DEFAULT FALSE
+* `navigation_url` VARCHAR(255) NULL
 * `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
-### 2.8 `audit_logs`
+### 2.8 `workflow_config`
+System-wide workflow policy toggles and demo thresholds (e.g., configurable closure review, SLA duration defaults).
+* `id` VARCHAR(36) PRIMARY KEY
+* `config_key` VARCHAR(100) UNIQUE NOT NULL
+* `config_value` VARCHAR(255) NOT NULL
+* `description` TEXT NULL
+* `updated_by` VARCHAR(36) NULL
+* `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+### 2.9 `audit_logs`
 System-wide immutable security & administrative audit log.
 * `id` VARCHAR(36) PRIMARY KEY
 * `user_id` VARCHAR(36) NULL (FK -> `users.id`)
-* `event_type` VARCHAR(100) NOT NULL (e.g., 'LOGIN_SUCCESS', 'AUTH_FAILED', 'CASE_LINK_CONFIRMED', 'CASE_DISPOSED')
+* `event_type` VARCHAR(100) NOT NULL (e.g., 'LOGIN_SUCCESS', 'AUTH_FAILED', 'CASE_STATUS_TRANSITION', 'CASE_TRANSFERRED', 'CASE_ESCALATED', 'WORKFLOW_CONFIG_UPDATED')
 * `ip_address` VARCHAR(45) NULL
+* `user_agent` VARCHAR(255) NULL
 * `payload_json` JSON NULL
 * `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+

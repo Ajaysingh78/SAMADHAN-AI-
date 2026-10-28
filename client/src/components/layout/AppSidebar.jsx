@@ -24,7 +24,7 @@ export function AppSidebar() {
     { label: 'Institution Registry (360°)', icon: Building2, path: '/app/institutions', phase: 'Active (P3)', enabled: true },
     { label: 'Complaint Case Tracking', icon: FileText, path: '/app/complaints', phase: 'Active (P3)', enabled: true },
     { label: 'Case Intelligence & Overlaps', icon: GitFork, path: '/app/case-intelligence', phase: 'Active (P4)', enabled: true },
-    { label: 'Workflow & Audit History', icon: History, path: '/app/workflow', phase: 'Phase 5', enabled: false },
+    { label: 'Workflow & Audit History', icon: History, path: '/app/workflow', phase: 'Active (P5)', enabled: true },
     { label: 'Reports & SLA Analytics', icon: BarChart3, path: '/app/reports', phase: 'Phase 6', enabled: false },
   ];
 

@@ -130,20 +130,80 @@
 
 ---
 
-## 5. Workflow & Action Timeline Endpoints
+## 5. Workflow, Action Timeline, Notifications & SLA Endpoints
 
-### `POST /api/v1/workflow/actions`
-* **Access**: Authorized Dealing Officer / Bureau Head
+### `GET /api/v1/workflow/complaints/:id/actions`
+* **Access**: Authenticated (Scope enforced by Bureau)
+* **Response (200 OK)**: Complete chronological action history (registration, status changes, transfers, escalations, reviews, reopenings).
+
+### `POST /api/v1/workflow/complaints/:id/transition`
+* **Access**: Authorized Officer / Senior Official
 * **Request**:
   ```json
   {
-    "caseId": "CMP-2026-RB-019",
-    "actionType": "SHOW_CAUSE_NOTICE_ISSUED",
-    "remarks": "Official show-cause notice sent to college principal with 14 days response deadline.",
-    "newStatus": "UNDER_PROCESS"
+    "newStatus": "UNDER_PROCESS", // or "HEARING_COMMITTEE", "DISPOSED", "REOPENED", etc.
+    "remarks": "Review of response documents conducted; proceeding to hearing committee stage.",
+    "documentReference": "DOC-REF-2026-092"
   }
   ```
-* **Response (201 Created)**: Action logged in timeline, status updated.
+* **Response (200 OK)**: Updated case record and newly recorded action history entry. Dverts to `CLOSURE_REQUESTED` if configurable closure review is active.
+
+### `POST /api/v1/workflow/complaints/:id/transfer`
+* **Access**: Authorized Officer of source Bureau / Senior Official / Admin
+* **Request**:
+  ```json
+  {
+    "destinationBureau": "APPROVAL_BUREAU",
+    "transferReason": "Matter pertains to institutional approval deficiency and accreditation compliance.",
+    "targetOfficerId": "usr-officer-approval-01"
+  }
+  ```
+* **Response (200 OK)**: Case jurisdiction updated with old/new owner tracking, action logged, destination notified.
+
+### `POST /api/v1/workflow/complaints/:id/escalate`
+* **Access**: Authorized Officer / Senior Official / Admin
+* **Request**:
+  ```json
+  {
+    "escalationReason": "Institution failed to respond within 14 days and student safety concerns raised."
+  }
+  ```
+* **Response (200 OK)**: Case escalated to `CRITICAL` priority, logged to timeline, Senior Official alerted.
+
+### `GET /api/v1/workflow/notifications`
+* **Access**: Authenticated (User-scoped)
+* **Query Parameters**: `unreadOnly=true|false`, `limit=50`
+* **Response (200 OK)**: List of persistent notifications with unread count.
+
+### `GET /api/v1/workflow/notifications/unread-count`
+* **Access**: Authenticated
+* **Response (200 OK)**: `{ "unreadCount": 3 }`
+
+### `PATCH /api/v1/workflow/notifications/:id/read`
+* **Access**: Notification recipient
+* **Response (200 OK)**: Notification marked as read.
+
+### `PATCH /api/v1/workflow/notifications/read-all`
+* **Access**: Authenticated
+* **Response (200 OK)**: Marks all user's notifications as read.
+
+### `POST /api/v1/workflow/cron/check-slas`
+* **Access**: Authenticated / Scheduled Service
+* **Response (200 OK)**: Scans cases, calculates dynamic SLA status, and dispatches deduplicated alerts for approaching or overdue deadlines.
+
+### `GET /api/v1/workflow/config`
+* **Access**: Authenticated
+* **Response (200 OK)**: Current workflow policy parameters (`REQUIRE_CLOSURE_REVIEW`, SLA duration defaults).
+
+### `PATCH /api/v1/workflow/config`
+* **Access**: System Administrator only (`ADMIN`)
+* **Request**: `{ "key": "REQUIRE_CLOSURE_REVIEW", "value": "true" }`
+* **Response (200 OK)**: Configuration updated and logged to security audit trail.
+
+### `GET /api/v1/workflow/audit`
+* **Access**: Senior Official (`SENIOR_OFFICIAL`) / Admin (`ADMIN`)
+* **Query Parameters**: `limit`, `offset`, `eventType`
+* **Response (200 OK)**: System-wide immutable security and administrative audit log trail.
 
 ---
 
