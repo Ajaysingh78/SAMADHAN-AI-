@@ -207,28 +207,90 @@
 
 ---
 
-## 6. Dashboard & Analytics Endpoints
+## 6. Dashboard, Analytics & Reporting Endpoints
 
 ### `GET /api/v1/reports/metrics`
-* **Access**: Authenticated (Role-aware aggregation)
+* **Access**: Authenticated (Role & scope enforced)
 * **Response (200 OK)**:
   ```json
   {
-    "totalCases": 142,
-    "pending": 48,
-    "underProcess": 65,
-    "disposed": 29,
-    "overdue": 14,
-    "crossBureauLinkedCases": 12,
-    "bureauWorkload": {
-      "REGULATION_BUREAU": 62,
-      "PGRC": 58,
-      "APPROVAL_BUREAU": 22
-    },
-    "ageingDistribution": {
-      "within15Days": 55,
-      "between15And30Days": 43,
-      "overdue30PlusDays": 14
+    "success": true,
+    "data": {
+      "scope": {
+        "userRole": "SENIOR_OFFICIAL",
+        "jurisdiction": "ALL_BUREAUS (Executive Oversight)",
+        "isFiltered": false
+      },
+      "counters": {
+        "totalComplaints": 48,
+        "pendingCases": 12,
+        "underProcessCases": 24,
+        "closureRequestedCases": 2,
+        "disposedCases": 8,
+        "reopenedCases": 2,
+        "overdueCases": 7,
+        "dueSoonCases": 4,
+        "activeEscalationsCount": 3,
+        "crossBureauLinkedCount": 14,
+        "pendingMatchReviewsCount": 5,
+        "disposalRatePercentage": 17
+      },
+      "distributions": {
+        "bureauWorkload": {
+          "REGULATION_BUREAU": { "total": 22, "pending": 5, "underProcess": 12, "disposed": 4, "overdue": 3 },
+          "PGRC": { "total": 18, "pending": 4, "underProcess": 9, "disposed": 3, "overdue": 2 },
+          "APPROVAL_BUREAU": { "total": 8, "pending": 3, "underProcess": 3, "disposed": 1, "overdue": 2 }
+        },
+        "categoryBreakdown": { "FACULTY_GRIEVANCE": 19, "CAPITATION_FEE": 12, "INFRASTRUCTURE_DEFICIENCY": 8 },
+        "severityBreakdown": { "CRITICAL": 3, "HIGH": 14, "STANDARD": 31 },
+        "ageingDistribution": { "under15Days": 16, "between15And30Days": 18, "between30And60Days": 10, "over60Days": 4 }
+      },
+      "topInstitutions": [
+        { "institutionId": "inst-rb-01", "name": "Apex Institute of Tech", "aicteId": "1-30491823", "region": "Northern", "count": 6 }
+      ],
+      "recentEscalations": [],
+      "recentActions": [],
+      "meta": {
+        "environment": "beta-demonstration",
+        "dataDisclaimer": "Demonstration Data: Real-time database metrics derived from synchronized synthetic cases. AICTE SLA thresholds are configurable demo policies."
+      }
     }
   }
   ```
+
+### `GET /api/v1/reports/search`
+* **Access**: Authenticated (Scope enforced)
+* **Query Parameters**: `query`, `caseId`, `institutionSearch`, `bureau`, `region`, `category`, `status`, `severity`, `overdueOnly`, `linkedOnly`, `startDate`, `endDate`, `page`, `limit`
+* **Response (200 OK)**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "total": 12,
+      "page": 1,
+      "limit": 20,
+      "totalPages": 1,
+      "items": [
+        {
+          "id": "cmp-uuid-01",
+          "case_id": "CMP-2026-RB-0012",
+          "institution_name": "Apex Institute of Technology",
+          "aicte_permanent_id": "1-30491823",
+          "bureau": "REGULATION_BUREAU",
+          "category": "FACULTY_GRIEVANCE",
+          "severity": "HIGH",
+          "status": "UNDER_PROCESS",
+          "slaStatus": { "isOverdue": false, "daysRemaining": 12, "slaState": "WITHIN_SLA" },
+          "linkedCasesCount": 2
+        }
+      ]
+    }
+  }
+  ```
+
+### `GET /api/v1/reports/export-csv`
+* **Access**: Authenticated (Scope enforced)
+* **Query Parameters**: Identical to `/search`
+* **Security Safeguard**: OWASP Anti-Formula Injection: values beginning with `= `, `+`, `-`, `@`, `\t`, or `\r` are sanitized with a prepended single quote (`'`) to neutralize spreadsheet calculation execution.
+* **Response (200 OK)**: Streamed CSV file with headers: `Content-Type: text/csv; charset=utf-8` and `Content-Disposition: attachment; filename="samadhan_cases_report_YYYY-MM-DD.csv"`.
+

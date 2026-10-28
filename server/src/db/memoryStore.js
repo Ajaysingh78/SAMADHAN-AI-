@@ -272,6 +272,13 @@ class MemoryStore {
       .sort((a, b) => new Date(b.performed_at) - new Date(a.performed_at));
   }
 
+  listAllRecentCaseActions(limit = 10) {
+    return [...this.caseActions]
+      .sort((a, b) => new Date(b.performed_at) - new Date(a.performed_at))
+      .slice(0, limit);
+  }
+
+
   // --- Tokens ---
   revokeToken(tokenHash, userId, expiresAt) {
     this.revokedTokens.add(tokenHash);

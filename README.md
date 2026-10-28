@@ -55,7 +55,9 @@ Detailed architectural contracts and design specifications are maintained in the
 * [`docs/DATABASE_SCHEMA.md`](file:///c:/Users/Hamada%20Salim%20G-Trd/SIH26264/docs/DATABASE_SCHEMA.md) — Relational schema, tables, foreign keys, and indexes.
 * [`docs/SECURITY.md`](file:///c:/Users/Hamada%20Salim%20G-Trd/SIH26264/docs/SECURITY.md) — Authentication, RBAC model, bureau/region scoping, and audit logging.
 * [`docs/TESTING.md`](file:///c:/Users/Hamada%20Salim%20G-Trd/SIH26264/docs/TESTING.md) — Test strategy, synthetic datasets, and definition of done.
-* [`docs/IMPLEMENTATION_STATUS.md`](file:///c:/Users/Hamada%20Salim%20G-Trd/SIH26264/docs/IMPLEMENTATION_STATUS.md) — Phased status tracking (Not Started / In Progress / Implemented / Verified).
+* [`docs/IMPLEMENTATION_STATUS.md`](file:///c:/Users/Hamada%20Salim%20G-Trd/SIH26264/docs/IMPLEMENTATION_STATUS.md) — Phased status tracking (All 6 Phases Verified).
+* [`docs/LOCAL_SETUP.md`](file:///c:/Users/Hamada%20Salim%20G-Trd/SIH26264/docs/LOCAL_SETUP.md) — Step-by-step local execution, seed credentials, and test runner guide.
+
 
 ---
 

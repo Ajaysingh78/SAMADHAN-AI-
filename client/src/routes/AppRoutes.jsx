@@ -16,6 +16,8 @@ import ComplaintListPage from '../features/complaints/ComplaintListPage';
 import ComplaintDetailPage from '../features/complaints/ComplaintDetailPage';
 import CaseIntelligencePage from '../features/intelligence/CaseIntelligencePage';
 import WorkflowManagementPage from '../features/workflow/WorkflowManagementPage';
+import IntegratedDashboardPage from '../features/dashboard/IntegratedDashboardPage';
+import ReportsPage from '../features/reports/ReportsPage';
 
 export function AppRoutes() {
   return (
@@ -28,8 +30,10 @@ export function AppRoutes() {
       {/* 2. Protected Authenticated Application Shell */}
       <Route element={<ProtectedRoute />}>
         <Route path="/app" element={<AppShell />}>
-          {/* Active Phase 2 & 3 Routes */}
-          <Route index element={<RoleWorkspaceHome />} />
+          {/* Phase 6 Integrated Dashboard */}
+          <Route index element={<IntegratedDashboardPage />} />
+          <Route path="dashboard" element={<IntegratedDashboardPage />} />
+          <Route path="diagnostics" element={<RoleWorkspaceHome />} />
           <Route path="admin" element={<UserManagementPage />} />
 
           {/* Phase 3 Live Routes */}
@@ -44,9 +48,8 @@ export function AppRoutes() {
           {/* Phase 5 Live Route */}
           <Route path="workflow" element={<WorkflowManagementPage />} />
 
-          {/* Scaffolded Downstream Routes */}
-          <Route path="dashboard" element={<GatedShellNotice title="Operational Dashboard (Phase 6)" />} />
-          <Route path="reports" element={<GatedShellNotice title="Reports & SLA Analytics (Phase 6)" />} />
+          {/* Phase 6 Live Reports */}
+          <Route path="reports" element={<ReportsPage />} />
         </Route>
       </Route>
 
@@ -57,3 +60,4 @@ export function AppRoutes() {
 }
 
 export default AppRoutes;
+

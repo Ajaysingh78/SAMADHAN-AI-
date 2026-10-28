@@ -19,14 +19,16 @@ export function AppSidebar() {
   const isAdmin = user?.role === 'ADMIN';
 
   const navItems = [
-    { label: 'Role Workspace', icon: LayoutDashboard, path: '/app', phase: 'Active (P2)', enabled: true },
-    { label: 'System Administration', icon: Settings, path: '/app/admin', phase: 'Active (P2)', enabled: isAdmin, adminOnly: true },
+    { label: 'Integrated Dashboard', icon: LayoutDashboard, path: '/app', phase: 'Active (P6)', enabled: true },
     { label: 'Institution Registry (360°)', icon: Building2, path: '/app/institutions', phase: 'Active (P3)', enabled: true },
     { label: 'Complaint Case Tracking', icon: FileText, path: '/app/complaints', phase: 'Active (P3)', enabled: true },
     { label: 'Case Intelligence & Overlaps', icon: GitFork, path: '/app/case-intelligence', phase: 'Active (P4)', enabled: true },
-    { label: 'Workflow & Audit History', icon: History, path: '/app/workflow', phase: 'Active (P5)', enabled: true },
-    { label: 'Reports & SLA Analytics', icon: BarChart3, path: '/app/reports', phase: 'Phase 6', enabled: false },
+    { label: 'Workflow & Operations', icon: History, path: '/app/workflow', phase: 'Active (P5)', enabled: true },
+    { label: 'Search & Export Reports', icon: BarChart3, path: '/app/reports', phase: 'Active (P6)', enabled: true },
+    { label: 'Scope Diagnostics', icon: ShieldCheck, path: '/app/diagnostics', phase: 'Active (P2)', enabled: true },
+    { label: 'System Administration', icon: Settings, path: '/app/admin', phase: 'Active (P2)', enabled: isAdmin, adminOnly: true },
   ];
+
 
   return (
     <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col flex-shrink-0 border-r border-slate-800 text-left">

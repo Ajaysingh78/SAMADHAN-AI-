@@ -67,6 +67,44 @@ class CaseActionRepository {
 
     return memoryStore.listCaseActions(complaintId);
   }
+
+  async listRecent(limit = 10) {
+    const dbStatus = getDbStatus();
+
+    if (dbStatus.connected) {
+      try {
+        const pool = getPool();
+        const [rows] = await pool.query(
+          `SELECT a.*, c.case_id, c.bureau, c.subject as complaint_subject,
+                  u.full_name as performed_by_name, u.role as performed_by_role
+           FROM case_actions a
+           LEFT JOIN complaints c ON a.complaint_id = c.id
+           LEFT JOIN users u ON a.performed_by = u.id
+           ORDER BY a.performed_at DESC
+           LIMIT ?`,
+          [limit]
+        );
+        return rows;
+      } catch (err) {
+        console.warn(`[CaseActionRepo] MySQL listRecent error, fallback to memory: ${err.message}`);
+      }
+    }
+
+    const actions = memoryStore.listAllRecentCaseActions(limit);
+    return actions.map(a => {
+      const cmp = memoryStore.findComplaintById(a.complaint_id);
+      const user = a.performed_by ? memoryStore.findUserById(a.performed_by) : null;
+      return {
+        ...a,
+        case_id: cmp ? cmp.case_id : 'UNKNOWN',
+        bureau: cmp ? cmp.bureau : 'UNKNOWN',
+        complaint_subject: cmp ? cmp.subject : '',
+        performed_by_name: user ? user.full_name : 'System',
+        performed_by_role: user ? user.role : 'SYSTEM'
+      };
+    });
+  }
 }
 
 module.exports = new CaseActionRepository();
+
