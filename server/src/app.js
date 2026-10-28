@@ -1,0 +1,36 @@
+const express = require('express');
+const cors = require('cors');
+const config = require('./config/env');
+const healthRoutes = require('./routes/health');
+const errorHandler = require('./middleware/errorHandler');
+const notFoundHandler = require('./middleware/notFoundHandler');
+
+const app = express();
+
+// Security and standard middlewares
+app.use(cors({
+  origin: config.clientUrl,
+  credentials: true
+}));
+
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+// Primary API v1 route mounting
+app.use('/api/v1', healthRoutes);
+
+// Root informational endpoint
+app.get('/', (req, res) => {
+  res.json({
+    service: 'SAMADHAN Case Intelligence Platform API',
+    version: '1.0.0',
+    documentation: '/docs/API_CONTRACT.md',
+    healthEndpoint: '/api/v1/health'
+  });
+});
+
+// Centralized error handling
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+module.exports = app;

@@ -14,8 +14,7 @@ This document tracks all features and architectural capabilities claimed in the 
 
 ## 2. Capability Verification Matrix
 
-| # | Feature / Capability | Relevant PPT Slide | Why It Matters | Implementation Status | Test / Evidence Reference | Safe Presentation Wording |
-|---|----------------------|--------------------|----------------|-----------------------|---------------------------|---------------------------|
+| 0 | **Institutional Public Portal & Design System** | Slide 1, 2, 3 | Public landing experience, clear institutional governance model, responsive design tokens, and gated application shell. | **Phase 1 VERIFIED** | Frontend build passed (Vite production bundle), 3 API contract tests passed. | "Standardized public-sector design system and institutional governance landing experience." |
 | 1 | **Unified Institution Profile** | Slide 2, 3, 5 | Resolves college identity using AICTE Permanent ID and maintains consolidated 360° history. | **Phase 3 Planned** | Pending Phase 3 schema and institution lookup tests. | "Consolidates institution complaint history mapped by AICTE Permanent ID." |
 | 2 | **End-to-End Case Tracking** | Slide 2, 3 | Maintains unique case IDs, lifecycle stages, assigned bureau/officer, and action history. | **Phase 3 Planned** | Pending Phase 3 case creation and lifecycle tests. | "Provides granular case tracking with timestamps and officer accountability." |
 | 3 | **Explainable Case Intelligence** | Slide 2, 3, 4 | Primary differentiator: Combines exact ID match, rule checks, metadata, and TF-IDF/cosine similarity. | **Phase 4 Planned** | Pending Phase 4 synthetic evaluation suite. | "Explainable similarity scoring with evidence breakdown (keyword overlap + bureau conflict)." |

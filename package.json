@@ -1,0 +1,26 @@
+{
+  "name": "samadhan",
+  "version": "1.0.0",
+  "description": "Cross-Bureau Case Intelligence & Coordination Platform (SIH26264)",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "test": "npm --prefix server test",
+    "start": "npm --prefix server start",
+    "setup": "npm install && npm --prefix server install && npm --prefix client install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "aicte",
+    "grievance-redressal",
+    "case-intelligence",
+    "sih2026"
+  ],
+  "author": "SAMADHAN Team",
+  "license": "UNLICENSED"
+}
