@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Menu, X, ArrowRight, Lock } from 'lucide-react';
+import { ShieldCheck, Menu, X, ArrowRight, Lock, LayoutDashboard } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import Button from '../common/Button';
 
 export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
@@ -38,11 +40,19 @@ export function PublicNavbar() {
 
           {/* Desktop Right Action */}
           <div className="hidden md:flex items-center gap-3">
-            <Link to="/login">
-              <Button variant="primary" size="sm" icon={Lock}>
-                Officer Sign In
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <Link to="/app">
+                <Button variant="primary" size="sm" icon={LayoutDashboard}>
+                  Open Console ({user?.username})
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <Button variant="primary" size="sm" icon={Lock}>
+                  Officer Sign In
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Trigger */}
@@ -97,11 +107,19 @@ export function PublicNavbar() {
             Safeguards
           </a>
           <div className="pt-2">
-            <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full block">
-              <Button variant="primary" className="w-full" icon={Lock}>
-                Authorized Officer Sign In
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <Link to="/app" onClick={() => setMobileMenuOpen(false)} className="w-full block">
+                <Button variant="primary" className="w-full" icon={LayoutDashboard}>
+                  Open Console ({user?.username})
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full block">
+                <Button variant="primary" className="w-full" icon={Lock}>
+                  Authorized Officer Sign In
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       )}

@@ -10,8 +10,8 @@
 | Phase | Phase Name | Status | Implemented Items | Verification Evidence | Blockers / Risks |
 |---|---|:---:|---|---|---|
 | **Phase 0** | **Foundation & Architecture** | **VERIFIED** | System specs, architecture, database schema, security rules, API contract, testing strategy, mind map, repo structure. | All 7 foundation docs created, environment inspected (Node 22, MySQL 8). | None. |
-| **Phase 1** | **Foundation, Homepage & Design System** | **VERIFIED** | Express API foundation, healthcheck endpoint, client Vite+React structure, Tailwind design system, reusable UI components, public homepage, gated app shell, 404/403 pages. | Backend test suite passed (3 tests), Vite build passed (0 errors, 6.93s). | None. Ready for Phase 2. |
-| **Phase 2** | **JWT Authentication & RBAC** | **NOT STARTED** | Pending prompt. | Pending execution. | None. |
+| **Phase 1** | **Foundation, Homepage & Design System** | **VERIFIED** | Express API foundation, healthcheck endpoint, client Vite+React structure, Tailwind design system, reusable UI components, public homepage, gated app shell, 404/403 pages. | Backend test suite passed (3 tests), Vite build passed (0 errors, 6.93s). | None. |
+| **Phase 2** | **JWT Authentication & RBAC** | **VERIFIED** | Real bcrypt hashing, JWT token lifecycle, backend token revocation table, login rate limiting, deactivated account checks, RBAC & bureau/region scoping middleware, admin user provisioning, security audit trail, live AuthContext & ProtectedRoute, role-aware navigation. | 21 backend tests passed (auth & rbac test suites), client production build passed (11.35s). | None. Ready for Phase 3. |
 | **Phase 3** | **Institution Registry & Complaint Management** | **NOT STARTED** | Pending prompt. | Pending execution. | None. |
 | **Phase 4** | **Explainable Case Intelligence** | **NOT STARTED** | Pending prompt. | Pending execution. | None. |
 | **Phase 5** | **Workflow, Audit, Reminders & Notifications** | **NOT STARTED** | Pending prompt. | Pending execution. | None. |

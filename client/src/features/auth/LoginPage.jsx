@@ -1,38 +1,56 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ShieldCheck, Lock, User, AlertCircle, ArrowLeft, Info } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { ShieldCheck, Lock, User, ArrowLeft, KeyRound, Sparkles, AlertCircle } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
-import Select from '../../components/common/Select';
 import AlertBanner from '../../components/common/AlertBanner';
 import Badge from '../../components/common/Badge';
 
 export function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login, isAuthenticated } = useAuth();
+
   const [username, setUsername] = useState('officer_rb');
   const [password, setPassword] = useState('Password@123');
-  const [bureau, setBureau] = useState('REGULATION_BUREAU');
-  const [noticeVisible, setNoticeVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const bureauOptions = [
-    { value: 'REGULATION_BUREAU', label: 'Regulation Bureau (RB)' },
-    { value: 'PGRC', label: 'Public Grievance Redressal Cell (PGRC)' },
-    { value: 'APPROVAL_BUREAU', label: 'Approval Bureau' },
-    { value: 'REGIONAL_OFFICE', label: 'Regional Office' },
-    { value: 'ADMIN', label: 'System Administration' },
-  ];
+  // Target route to redirect after login
+  const from = location.state?.from?.pathname || '/app';
 
-  const handleSubmit = (e) => {
+  // If already logged in, redirect
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/app', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Prompt 1 rule: Do not pretend authentication works before Prompt 2 implements it
-    alert(
-      'Notice: Prompt 1 establishes the design system and shell foundation. Interactive JWT session issuance, database-backed credential verification, and RBAC enforcement will be activated in Prompt 2.'
-    );
+    setErrorMessage('');
+    setIsLoading(true);
+
+    try {
+      await login(username, password);
+      navigate(from, { replace: true });
+    } catch (err) {
+      setErrorMessage(err.message || 'Authentication failed. Please verify credentials.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const setDemoCredentials = (u, p) => {
+    setUsername(u);
+    setPassword(p);
+    setErrorMessage('');
   };
 
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-left relative overflow-hidden">
-      {/* Background Grid */}
+      {/* Background Pattern */}
       <div 
         className="absolute inset-0 opacity-5 pointer-events-none"
         style={{
@@ -53,7 +71,7 @@ export function LoginPage() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-white tracking-tight">SAMADHAN</h1>
-            <p className="text-xs text-slate-400">Authorized AICTE Officer Portal</p>
+            <p className="text-xs text-slate-400">AICTE Case Intelligence & Governance Portal</p>
           </div>
         </div>
       </div>
@@ -62,7 +80,7 @@ export function LoginPage() {
         <div className="bg-white py-8 px-6 shadow-xl rounded-lg sm:px-10 border border-slate-200">
           <div className="mb-6 pb-4 border-b border-slate-100 flex items-center justify-between">
             <div>
-              <h2 className="text-base font-bold text-slate-900">Sign In to Workspace</h2>
+              <h2 className="text-base font-bold text-slate-900">Sign In to Console</h2>
               <p className="text-xs text-slate-500 mt-0.5">Enter authorized Bureau credentials</p>
             </div>
             <Badge variant="primary" size="sm">
@@ -70,26 +88,17 @@ export function LoginPage() {
             </Badge>
           </div>
 
-          {noticeVisible && (
+          {errorMessage && (
             <AlertBanner
-              variant="info"
-              className="mb-6 text-xs"
-              onDismiss={() => setNoticeVisible(false)}
+              variant="danger"
+              className="mb-5 text-xs"
+              onDismiss={() => setErrorMessage('')}
             >
-              <strong>Phase 1 Security Notice:</strong> Active credential authentication and backend JWT session issuance will be activated in <strong>Prompt 2</strong>. Direct unauthenticated bypass to internal case records is blocked.
+              {errorMessage}
             </AlertBanner>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Select
-              label="Designated Bureau / Role"
-              id="bureau"
-              value={bureau}
-              onChange={(e) => setBureau(e.target.value)}
-              options={bureauOptions}
-              required
-            />
-
             <Input
               label="Username / Official ID"
               id="username"
@@ -113,16 +122,71 @@ export function LoginPage() {
             />
 
             <div className="pt-2">
-              <Button type="submit" variant="primary" className="w-full" icon={Lock}>
-                Sign In to Console
+              <Button
+                type="submit"
+                variant="primary"
+                className="w-full"
+                isLoading={isLoading}
+                icon={Lock}
+              >
+                Authenticate & Access Console
               </Button>
             </div>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 text-center">
-            <p className="text-[11px] text-slate-500">
-              Access is restricted strictly to authorized AICTE Regulation Bureau, PGRC, Regional Officers, and Administrators.
-            </p>
+          {/* Quick-Fill Development Test Accounts */}
+          <div className="mt-6 pt-5 border-t border-slate-100">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 mb-2">
+              <KeyRound className="w-3.5 h-3.5 text-gov-600" />
+              <span>Development Seed Accounts (Quick Fill):</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-[11px]">
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('officer_rb', 'Password@123')}
+                className="p-2 text-left rounded bg-slate-50 border border-slate-200 hover:bg-gov-50 hover:border-gov-300 transition-colors"
+              >
+                <div className="font-semibold text-slate-800">RB Officer</div>
+                <div className="text-[10px] text-slate-500 font-mono">officer_rb</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('officer_pgrc', 'Password@123')}
+                className="p-2 text-left rounded bg-slate-50 border border-slate-200 hover:bg-gov-50 hover:border-gov-300 transition-colors"
+              >
+                <div className="font-semibold text-slate-800">PGRC Officer</div>
+                <div className="text-[10px] text-slate-500 font-mono">officer_pgrc</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('official_senior', 'Password@123')}
+                className="p-2 text-left rounded bg-slate-50 border border-slate-200 hover:bg-gov-50 hover:border-gov-300 transition-colors"
+              >
+                <div className="font-semibold text-slate-800">Senior Official</div>
+                <div className="text-[10px] text-slate-500 font-mono">official_senior</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('admin_sys', 'Password@123')}
+                className="p-2 text-left rounded bg-slate-50 border border-slate-200 hover:bg-gov-50 hover:border-gov-300 transition-colors"
+              >
+                <div className="font-semibold text-slate-800">System Admin</div>
+                <div className="text-[10px] text-slate-500 font-mono">admin_sys</div>
+              </button>
+            </div>
+
+            <div className="mt-2 text-right">
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('officer_disabled', 'Password@123')}
+                className="text-[10px] text-rose-600 hover:underline"
+              >
+                Test Disabled Account Rejection (officer_disabled)
+              </button>
+            </div>
           </div>
         </div>
       </div>

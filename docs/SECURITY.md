@@ -30,6 +30,10 @@
   }
   ```
 * **Password Hashing**: Passwords are salted and hashed using `bcrypt` (10 rounds minimum). Plaintext passwords are never stored or transmitted in responses.
+* **Token Invalidation & Revocation**: Upon calling `/api/v1/auth/logout`, the active JWT's SHA-256 hash is recorded in `revoked_tokens`. Subsequent requests with the same token are rejected with HTTP 401 `TOKEN_REVOKED`.
+* **Brute-Force Rate Limiting**: The `/api/v1/auth/login` endpoint is guarded by a sliding-window rate limiter allowing max 5 failed attempts per 15-minute window per IP/username, returning HTTP 429 `RATE_LIMIT_EXCEEDED`.
+* **Account Deactivation Protection**: Deactivated accounts (`is_active = FALSE`) are blocked during login and in the auth middleware with HTTP 403 `ACCOUNT_DISABLED`.
+* **Secure Development Seeds**: Seed accounts are only initialized when `NODE_ENV !== 'production'` and are explicitly guarded against production instantiation.
 
 ---
 
