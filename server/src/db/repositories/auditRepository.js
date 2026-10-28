@@ -3,6 +3,16 @@ const memoryStore = require('../memoryStore');
 const crypto = require('crypto');
 
 class AuditRepository {
+  async log(entry) {
+    return this.logEvent({
+      userId: entry.user_id || entry.userId,
+      username: entry.username,
+      eventType: entry.event_type || entry.eventType,
+      ipAddress: entry.ip_address || entry.ipAddress,
+      details: entry.metadata || entry.details
+    });
+  }
+
   async logEvent({ userId = null, username = null, eventType, ipAddress = null, details = null }) {
     const dbStatus = getDbStatus();
 

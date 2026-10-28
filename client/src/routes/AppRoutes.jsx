@@ -14,6 +14,7 @@ import InstitutionListPage from '../features/institutions/InstitutionListPage';
 import InstitutionDossierPage from '../features/institutions/InstitutionDossierPage';
 import ComplaintListPage from '../features/complaints/ComplaintListPage';
 import ComplaintDetailPage from '../features/complaints/ComplaintDetailPage';
+import CaseIntelligencePage from '../features/intelligence/CaseIntelligencePage';
 
 export function AppRoutes() {
   return (
@@ -36,9 +37,11 @@ export function AppRoutes() {
           <Route path="complaints" element={<ComplaintListPage />} />
           <Route path="complaints/:id" element={<ComplaintDetailPage />} />
 
+          {/* Phase 4 Live Route */}
+          <Route path="case-intelligence" element={<CaseIntelligencePage />} />
+
           {/* Scaffolded Downstream Routes */}
           <Route path="dashboard" element={<GatedShellNotice title="Operational Dashboard (Phase 6)" />} />
-          <Route path="case-intelligence" element={<GatedShellNotice title="Cross-Bureau Case Intelligence (Phase 4)" />} />
           <Route path="workflow" element={<GatedShellNotice title="Workflow & Action History (Phase 5)" />} />
           <Route path="reports" element={<GatedShellNotice title="Reports & SLA Analytics (Phase 6)" />} />
         </Route>

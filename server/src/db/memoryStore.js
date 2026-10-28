@@ -19,6 +19,8 @@ class MemoryStore {
     this.institutions = new Map();
     this.complaints = new Map();
     this.caseActions = [];
+    this.matchAlerts = new Map();
+    this.caseLinks = new Map();
   }
 
   // --- Users ---
@@ -295,6 +297,108 @@ class MemoryStore {
     const total = list.length;
     const items = list.slice(offset, offset + limit);
     return { total, items };
+  }
+
+  // --- Match Alerts ---
+  createOrUpdateMatchAlert(alertData) {
+    const existing = Array.from(this.matchAlerts.values()).find(
+      a => (a.source_complaint_id === alertData.source_complaint_id && a.candidate_complaint_id === alertData.candidate_complaint_id) ||
+           (a.source_complaint_id === alertData.candidate_complaint_id && a.candidate_complaint_id === alertData.source_complaint_id)
+    );
+
+    const now = new Date().toISOString();
+    if (existing) {
+      existing.confidence_score = alertData.confidence_score;
+      existing.relationship_classification = alertData.relationship_classification;
+      existing.institution_match_type = alertData.institution_match_type;
+      existing.rule_flags = alertData.rule_flags;
+      existing.evidence_breakdown = alertData.evidence_breakdown;
+      existing.explanation = alertData.explanation;
+      existing.updated_at = now;
+      this.matchAlerts.set(existing.id, existing);
+      return { ...existing };
+    }
+
+    const id = alertData.id || crypto.randomUUID();
+    const record = {
+      ...alertData,
+      id,
+      status: alertData.status || 'PENDING_REVIEW',
+      reviewed_by: alertData.reviewed_by || null,
+      reviewed_at: alertData.reviewed_at || null,
+      decision_reason: alertData.decision_reason || null,
+      created_at: now,
+      updated_at: now
+    };
+    this.matchAlerts.set(id, record);
+    return { ...record };
+  }
+
+  findMatchAlertById(id) {
+    const alert = this.matchAlerts.get(id);
+    return alert ? { ...alert } : null;
+  }
+
+  findMatchAlertsByComplaintId(complaintId) {
+    return Array.from(this.matchAlerts.values())
+      .filter(a => a.source_complaint_id === complaintId || a.candidate_complaint_id === complaintId)
+      .sort((a, b) => b.confidence_score - a.confidence_score);
+  }
+
+  listMatchAlerts({ status = '', classification = '', search = '' } = {}) {
+    let list = Array.from(this.matchAlerts.values());
+    if (status) {
+      list = list.filter(a => a.status === status);
+    }
+    if (classification) {
+      list = list.filter(a => a.relationship_classification === classification);
+    }
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter(a => a.explanation && a.explanation.toLowerCase().includes(q));
+    }
+    return list.sort((a, b) => b.confidence_score - a.confidence_score);
+  }
+
+  updateMatchAlertReview(id, { status, reviewedBy, decisionReason }) {
+    const alert = this.matchAlerts.get(id);
+    if (!alert) return null;
+    alert.status = status;
+    alert.reviewed_by = reviewedBy;
+    alert.reviewed_at = new Date().toISOString();
+    alert.decision_reason = decisionReason || null;
+    alert.updated_at = new Date().toISOString();
+    this.matchAlerts.set(id, alert);
+    return { ...alert };
+  }
+
+  // --- Case Links ---
+  createCaseLink(linkData) {
+    const id = linkData.id || crypto.randomUUID();
+    const now = new Date().toISOString();
+    const record = {
+      ...linkData,
+      id,
+      created_at: now
+    };
+    this.caseLinks.set(id, record);
+    return { ...record };
+  }
+
+  findCaseLinksByComplaintId(complaintId) {
+    return Array.from(this.caseLinks.values())
+      .filter(l => l.source_complaint_id === complaintId || l.target_complaint_id === complaintId);
+  }
+
+  isCaseLinked(id1, id2) {
+    return Array.from(this.caseLinks.values()).some(
+      l => (l.source_complaint_id === id1 && l.target_complaint_id === id2) ||
+           (l.source_complaint_id === id2 && l.target_complaint_id === id1)
+    );
+  }
+
+  listCaseLinks() {
+    return Array.from(this.caseLinks.values()).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   }
 }
 

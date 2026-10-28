@@ -14,6 +14,11 @@ class ComplaintRepository {
     return `CMP-${year}-${prefix}-${String(caseCounter).padStart(4, '0')}`;
   }
 
+  async findAll() {
+    const res = await this.list({ limit: 1000 });
+    return res.items || [];
+  }
+
   async findById(id) {
     if (!id) return null;
     const dbStatus = getDbStatus();
