@@ -4,18 +4,23 @@ const config = require('./config/env');
 const healthRoutes = require('./routes/health');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
+const institutionsRoutes = require('./routes/institutions');
+const complaintsRoutes = require('./routes/complaints');
 const scopedCasesRoutes = require('./routes/scopedCases');
 const { seedDevelopmentUsers } = require('./db/seeds/001_seed_dev_users');
+const { seedInstitutionsAndComplaints } = require('./db/seeds/002_seed_dev_institutions_and_complaints');
 const errorHandler = require('./middleware/errorHandler');
 const notFoundHandler = require('./middleware/notFoundHandler');
 
 const app = express();
 
-// Initialize development seed users if in development or test environment
+// Initialize development seed users and data if in development or test environment
 if (config.env !== 'production') {
-  seedDevelopmentUsers().catch(err => {
-    console.warn(`[Seed Warning] Could not complete seed initialization: ${err.message}`);
-  });
+  seedDevelopmentUsers()
+    .then(() => seedInstitutionsAndComplaints())
+    .catch(err => {
+      console.warn(`[Seed Warning] Could not complete seed initialization: ${err.message}`);
+    });
 }
 
 // Security and standard middlewares
@@ -31,6 +36,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1', healthRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/institutions', institutionsRoutes);
+app.use('/api/v1/complaints', complaintsRoutes);
 app.use('/api/v1/cases', scopedCasesRoutes);
 
 // Root informational endpoint

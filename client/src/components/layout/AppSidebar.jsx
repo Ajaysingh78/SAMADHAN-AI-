@@ -21,8 +21,8 @@ export function AppSidebar() {
   const navItems = [
     { label: 'Role Workspace', icon: LayoutDashboard, path: '/app', phase: 'Active (P2)', enabled: true },
     { label: 'System Administration', icon: Settings, path: '/app/admin', phase: 'Active (P2)', enabled: isAdmin, adminOnly: true },
-    { label: 'Institution Registry (360°)', icon: Building2, path: '/app/institutions', phase: 'Phase 3', enabled: false },
-    { label: 'Complaint Case Tracking', icon: FileText, path: '/app/complaints', phase: 'Phase 3', enabled: false },
+    { label: 'Institution Registry (360°)', icon: Building2, path: '/app/institutions', phase: 'Active (P3)', enabled: true },
+    { label: 'Complaint Case Tracking', icon: FileText, path: '/app/complaints', phase: 'Active (P3)', enabled: true },
     { label: 'Case Intelligence & Overlaps', icon: GitFork, path: '/app/case-intelligence', phase: 'Phase 4', enabled: false },
     { label: 'Workflow & Audit History', icon: History, path: '/app/workflow', phase: 'Phase 5', enabled: false },
     { label: 'Reports & SLA Analytics', icon: BarChart3, path: '/app/reports', phase: 'Phase 6', enabled: false },
