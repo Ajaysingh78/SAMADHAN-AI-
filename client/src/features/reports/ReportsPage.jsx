@@ -164,12 +164,13 @@ export function ReportsPage() {
       if (startDate) params.append('startDate', startDate);
       if (endDate) params.append('endDate', endDate);
 
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('samadhan_token');
       const response = await fetch(`/api/v1/reports/export-csv?${params.toString()}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
+
 
       if (!response.ok) {
         throw new Error('Failed to generate CSV export.');
