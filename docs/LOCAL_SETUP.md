@@ -25,7 +25,8 @@ Create `server/.env` using `.env.example`:
 # Server Environment
 NODE_ENV=development
 PORT=5000
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=http://localhost:5174
+
 
 # Security & Authentication
 JWT_SECRET=super_secret_samadhan_jwt_key_2026_sih
@@ -109,10 +110,11 @@ npm run dev
 cd client
 npm run dev
 ```
-* Frontend runs at: `http://localhost:5173`
-* Public Landing Page: `http://localhost:5173/`
-* Login Portal: `http://localhost:5173/login`
-* Integrated Operations Dashboard: `http://localhost:5173/app`
+* Frontend runs at: `http://localhost:5174`
+* Public Landing Page: `http://localhost:5174/`
+* Login Portal: `http://localhost:5174/login`
+* Integrated Operations Dashboard: `http://localhost:5174/app`
+
 
 ---
 
