@@ -1,5 +1,5 @@
 /**
- * Labelled Synthetic Benchmark Evaluation Suite for SAMADHAN Case Intelligence
+ * Labelled Synthetic Benchmark Evaluation Suite for samadhanX Case Intelligence
  * Evaluates Precision, Recall, F1-Score, and False-Positive Rate against
  * verified realistic scenarios without artificial data manipulation.
  */

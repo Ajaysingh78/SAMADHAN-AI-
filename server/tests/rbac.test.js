@@ -107,7 +107,7 @@ test('Admin Provisioning: Admin can provision a new officer account with 201 Cre
     .set('Authorization', `Bearer ${adminToken}`)
     .send({
       username: uniqueUser,
-      email: `${uniqueUser}@samadhan.aicte.gov.in`,
+      email: `${uniqueUser}@samadhanX.aicte.gov.in`,
       password: 'Password@123',
       fullName: 'New Scrutiny Officer',
       role: 'BUREAU_OFFICER',

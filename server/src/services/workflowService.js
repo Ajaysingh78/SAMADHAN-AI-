@@ -1,5 +1,5 @@
 /**
- * Central Workflow Service for SAMADHAN
+ * Central Workflow Service for samadhanX
  * Enforces complaint lifecycle state machine, role-based transitions,
  * configurable closure review, transfers, escalations, dynamic SLA calculation,
  * and automated reminder deduplication.

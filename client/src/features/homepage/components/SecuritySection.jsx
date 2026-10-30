@@ -14,7 +14,7 @@ export function SecuritySection() {
             Built with Enterprise Guardrails & Scoped Access
           </h2>
           <p className="text-sm text-slate-400 mt-2">
-            Complaints often contain sensitive whistleblower statements or commercial data. SAMADHAN implements strict least-privilege scoping.
+            Complaints often contain sensitive whistleblower statements or commercial data. samadhanX implements strict least-privilege scoping.
           </p>
         </div>
 

@@ -48,7 +48,7 @@ export function WorkflowManagementPage() {
   const fetchComplaints = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch('/api/v1/complaints?limit=50', {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -70,7 +70,7 @@ export function WorkflowManagementPage() {
     if (!complaintId) return;
     try {
       setTimelineLoading(true);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch(`/api/v1/workflow/complaints/${complaintId}/actions`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -87,7 +87,7 @@ export function WorkflowManagementPage() {
 
   const fetchConfig = async () => {
     try {
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch('/api/v1/workflow/config', {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -114,7 +114,7 @@ export function WorkflowManagementPage() {
   const handleRunSlaScan = async () => {
     try {
       setSlaScanning(true);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch('/api/v1/workflow/cron/check-slas', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
@@ -133,7 +133,7 @@ export function WorkflowManagementPage() {
   const handleToggleClosureReview = async () => {
     try {
       setConfigSaving(true);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const currentVal = workflowConfig.REQUIRE_CLOSURE_REVIEW === 'true';
       const newVal = (!currentVal).toString();
 
@@ -164,7 +164,7 @@ export function WorkflowManagementPage() {
     try {
       setActionSubmitting(true);
       setActionError(null);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch(`/api/v1/workflow/complaints/${selectedComplaint.id}/transfer`, {
         method: 'POST',
         headers: {
@@ -197,7 +197,7 @@ export function WorkflowManagementPage() {
     try {
       setActionSubmitting(true);
       setActionError(null);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch(`/api/v1/workflow/complaints/${selectedComplaint.id}/escalate`, {
         method: 'POST',
         headers: {
@@ -229,7 +229,7 @@ export function WorkflowManagementPage() {
     try {
       setActionSubmitting(true);
       setActionError(null);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch(`/api/v1/workflow/complaints/${selectedComplaint.id}/transition`, {
         method: 'POST',
         headers: {
@@ -262,7 +262,7 @@ export function WorkflowManagementPage() {
     try {
       setActionSubmitting(true);
       setActionError(null);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch(`/api/v1/workflow/complaints/${selectedComplaint.id}/transition`, {
         method: 'POST',
         headers: {
@@ -403,11 +403,10 @@ export function WorkflowManagementPage() {
                   <div
                     key={c.id}
                     onClick={() => setSelectedComplaint(c)}
-                    className={`p-3 rounded-lg border text-xs cursor-pointer transition-all ${
-                      isSelected
+                    className={`p-3 rounded-lg border text-xs cursor-pointer transition-all ${isSelected
                         ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/40 text-blue-950 dark:text-blue-100 ring-2 ring-blue-500/20'
                         : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-between font-bold">
                       <span>{c.case_id}</span>
@@ -488,11 +487,10 @@ export function WorkflowManagementPage() {
                 <button
                   onClick={handleToggleClosureReview}
                   disabled={configSaving}
-                  className={`px-2.5 py-1 text-xs font-bold rounded-full transition-colors ${
-                    workflowConfig.REQUIRE_CLOSURE_REVIEW === 'true'
+                  className={`px-2.5 py-1 text-xs font-bold rounded-full transition-colors ${workflowConfig.REQUIRE_CLOSURE_REVIEW === 'true'
                       ? 'bg-emerald-600 text-white'
                       : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
-                  }`}
+                    }`}
                 >
                   {workflowConfig.REQUIRE_CLOSURE_REVIEW === 'true' ? 'ENABLED' : 'DISABLED'}
                 </button>

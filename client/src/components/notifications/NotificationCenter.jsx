@@ -13,7 +13,7 @@ export function NotificationCenter() {
   const fetchNotifications = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       if (!token) return;
 
       const res = await fetch('/api/v1/workflow/notifications?limit=20', {
@@ -51,7 +51,7 @@ export function NotificationCenter() {
   const handleMarkAsRead = async (id, e) => {
     e.stopPropagation();
     try {
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch(`/api/v1/workflow/notifications/${id}/read`, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${token}` }
@@ -67,7 +67,7 @@ export function NotificationCenter() {
 
   const handleMarkAllRead = async () => {
     try {
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch('/api/v1/workflow/notifications/read-all', {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${token}` }
@@ -84,7 +84,7 @@ export function NotificationCenter() {
   const handleNavigate = (notif) => {
     setIsOpen(false);
     if (!notif.read_status) {
-      handleMarkAsRead(notif.id, { stopPropagation: () => {} });
+      handleMarkAsRead(notif.id, { stopPropagation: () => { } });
     }
     if (notif.navigation_url) {
       navigate(notif.navigation_url);
@@ -167,9 +167,8 @@ export function NotificationCenter() {
                 <div
                   key={n.id}
                   onClick={() => handleNavigate(n)}
-                  className={`p-3 text-xs cursor-pointer transition-colors flex items-start gap-3 hover:bg-slate-50 dark:hover:bg-slate-800/60 ${
-                    !n.read_status ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''
-                  }`}
+                  className={`p-3 text-xs cursor-pointer transition-colors flex items-start gap-3 hover:bg-slate-50 dark:hover:bg-slate-800/60 ${!n.read_status ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''
+                    }`}
                 >
                   <div className="mt-0.5 p-1 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs">
                     {getEventIcon(n.event_type)}

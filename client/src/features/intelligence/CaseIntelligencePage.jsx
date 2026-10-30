@@ -23,7 +23,7 @@ export function CaseIntelligencePage() {
     try {
       setLoading(true);
       setError(null);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const params = new URLSearchParams();
       if (statusFilter) params.append('status', statusFilter);
       if (classificationFilter) params.append('classification', classificationFilter);
@@ -44,7 +44,7 @@ export function CaseIntelligencePage() {
 
   const fetchBenchmark = async () => {
     try {
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch('/api/v1/intelligence/evaluation/benchmark', {
         headers: { Authorization: `Bearer ${token}` }
       });

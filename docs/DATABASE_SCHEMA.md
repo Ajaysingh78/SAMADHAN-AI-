@@ -1,4 +1,4 @@
-# SAMADHAN — Relational Database Schema (MySQL 8.0)
+# samadhanX — Relational Database Schema (MySQL 8.0)
 
 **Target Engine:** InnoDB  
 **Charset / Collation:** `utf8mb4` / `utf8mb4_unicode_ci`  

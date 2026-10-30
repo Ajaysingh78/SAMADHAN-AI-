@@ -560,7 +560,7 @@ router.get('/export-csv', async (req, res) => {
     });
 
     const csvContent = rows.join('\r\n');
-    const filename = `samadhan_case_report_${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `samadhanX_case_report_${new Date().toISOString().split('T')[0]}.csv`;
 
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);

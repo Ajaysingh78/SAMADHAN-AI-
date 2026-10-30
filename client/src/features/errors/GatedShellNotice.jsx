@@ -26,7 +26,7 @@ export function GatedShellNotice({ title = 'Module Gated for Phase 2' }) {
           </div>
 
           <p className="text-sm text-slate-600 leading-relaxed">
-            In accordance with the <strong>SAMADHAN Master Foundation Rules</strong>, internal operational dashboards, 
+            In accordance with the <strong>samadhanX Master Foundation Rules</strong>, internal operational dashboards,
             complaint case registries, and cross-bureau intelligence are protected and will not be displayed unauthenticated.
           </p>
 

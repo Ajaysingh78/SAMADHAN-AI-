@@ -1,4 +1,4 @@
-# SAMADHAN — REST API Contract
+# samadhanX — REST API Contract
 
 **API Version:** `v1`  
 **Base URL:** `/api/v1`  
@@ -292,5 +292,5 @@
 * **Access**: Authenticated (Scope enforced)
 * **Query Parameters**: Identical to `/search`
 * **Security Safeguard**: OWASP Anti-Formula Injection: values beginning with `= `, `+`, `-`, `@`, `\t`, or `\r` are sanitized with a prepended single quote (`'`) to neutralize spreadsheet calculation execution.
-* **Response (200 OK)**: Streamed CSV file with headers: `Content-Type: text/csv; charset=utf-8` and `Content-Disposition: attachment; filename="samadhan_cases_report_YYYY-MM-DD.csv"`.
+* **Response (200 OK)**: Streamed CSV file with headers: `Content-Type: text/csv; charset=utf-8` and `Content-Disposition: attachment; filename="samadhanX_cases_report_YYYY-MM-DD.csv"`.
 

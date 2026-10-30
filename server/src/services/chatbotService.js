@@ -1,5 +1,5 @@
 /**
- * AICTE SamadhanX Intelligent Chatbot & Copilot Service
+ * AICTE samadhanXX Intelligent Chatbot & Copilot Service
  * Provides dual-mode intelligence:
  * 1. Citizen Grievance Guide (Public mode: FAQ, AICTE norms, privacy-safe case tracking)
  * 2. Officer Operations Copilot (Authenticated mode: SLA alerts, cross-bureau matches, case summaries)
@@ -70,15 +70,15 @@ class ChatbotService {
       return this.handleFilingProcedureGuidance(Boolean(user));
     }
 
-    if (this.matchesAny(lower, ['who are you', 'what is samadhan', 'samadhanx', 'about', 'help', 'hi', 'hello', 'namaste'])) {
+    if (this.matchesAny(lower, ['who are you', 'what is samadhanX', 'samadhanXx', 'about', 'help', 'hi', 'hello', 'namaste'])) {
       return this.handleIntroduction(Boolean(user), user);
     }
 
     // 4. Fallback response with helpful prompt suggestions
     return {
       answer: user
-        ? `I am your **SamadhanX Officer Copilot**. You can ask me to track specific cases by entering a Case ID (e.g. \`CMP-2026-PGRC-0010\`), query **overdue SLA cases**, review **cross-bureau match alerts**, or inspect **bureau workload**.`
-        : `Namaste! I am the **AICTE Samadhan Sahayak** virtual assistant. I can help you track your complaint status, explain AICTE fee refund policies, anti-ragging protocols, certificate return norms, or guide you on filing a grievance.`,
+        ? `I am your **samadhanXX Officer Copilot**. You can ask me to track specific cases by entering a Case ID (e.g. \`CMP-2026-PGRC-0010\`), query **overdue SLA cases**, review **cross-bureau match alerts**, or inspect **bureau workload**.`
+        : `Namaste! I am the **AICTE samadhanX Sahayak** virtual assistant. I can help you track your complaint status, explain AICTE fee refund policies, anti-ragging protocols, certificate return norms, or guide you on filing a grievance.`,
       suggestions: this.getDefaultSuggestions(Boolean(user)),
       intent: 'GENERAL_GUIDANCE'
     };
@@ -111,8 +111,8 @@ class ChatbotService {
 
       const statusName = STATUS_LABELS[complaint.status] || complaint.status;
       const bureauLabel = complaint.bureau === 'REGULATION_BUREAU' ? 'Regulation Bureau (RB)' :
-                          complaint.bureau === 'PGRC' ? 'Public Grievance Redressal Cell (PGRC)' :
-                          complaint.bureau === 'APPROVAL_BUREAU' ? 'Approval Bureau (APP)' : complaint.bureau;
+        complaint.bureau === 'PGRC' ? 'Public Grievance Redressal Cell (PGRC)' :
+          complaint.bureau === 'APPROVAL_BUREAU' ? 'Approval Bureau (APP)' : complaint.bureau;
 
       if (user) {
         // Authenticated Officer Mode: Complete Operational Detail
@@ -193,7 +193,7 @@ class ChatbotService {
   async handleOfficerOverdueSummary(user) {
     try {
       const allComplaints = await complaintRepository.findAll();
-      
+
       // Filter by Bureau if scoped
       let scoped = allComplaints;
       if (user.role === 'BUREAU_OFFICER' && user.primaryBureau) {
@@ -260,7 +260,7 @@ class ChatbotService {
           answer += `* **${confPercent}% Match:** Source \`${a.source_case_id || 'Case A'}\` (${a.source_bureau || 'Bureau 1'}) ⟷ Candidate \`${a.candidate_case_id || 'Case B'}\` (${a.candidate_bureau || 'Bureau 2'})\n`;
           answer += `  *Classification:* \`${a.relationship_classification || 'POSSIBLE_RELATED'}\`\n`;
         });
-        answer += `\n*Note: SamadhanX guarantees zero auto-closure. Each match requires authorized officer review before non-destructive linking.*`;
+        answer += `\n*Note: samadhanXX guarantees zero auto-closure. Each match requires authorized officer review before non-destructive linking.*`;
       } else {
         answer += `✅ *No unreviewed cross-bureau conflicts detected in the current queue.*`;
       }
@@ -424,7 +424,7 @@ AICTE maintains a strict **Zero-Tolerance Policy** against any form of ragging o
    * AICTE Knowledge: How to File a Grievance
    */
   handleFilingProcedureGuidance(isOfficer) {
-    const answer = `### 📝 How to File a Grievance on AICTE Samadhan
+    const answer = `### 📝 How to File a Grievance on AICTE samadhanX
 
 1. **Step 1 — Identify the Issue:** Ensure your grievance relates to an AICTE-approved technical institution (e.g., Capitation Fee, Refund, Ragging, Inadequate Labs, Faculty Grievance).
 2. **Step 2 — Gather Evidence:** Keep receipts, fee receipts, registration letters, or emails ready in PDF format.
@@ -446,14 +446,14 @@ AICTE maintains a strict **Zero-Tolerance Policy** against any form of ragging o
   handleIntroduction(isOfficer, user) {
     if (isOfficer) {
       return {
-        answer: `Namaste, **${user?.full_name || 'Officer'}**! 🛡️\n\nI am your **SamadhanX Copilot**. I am connected to the live case database and can assist you with:\n* 🔍 **Instant Case Dossier Lookup:** Enter any Case ID (e.g. \`CMP-2026-RB-0021\`).\n* 🚨 **Overdue SLA Scans:** Ask *"Show overdue cases"* to prioritize pending investigations.\n* ⚡ **Cross-Bureau Intelligence:** Ask *"Check match alerts"* to view detected institutional overlaps.\n* 📊 **Workload Analytics:** Ask *"Show workload statistics"* across AICTE cells.`,
+        answer: `Namaste, **${user?.full_name || 'Officer'}**! 🛡️\n\nI am your **samadhanXX Copilot**. I am connected to the live case database and can assist you with:\n* 🔍 **Instant Case Dossier Lookup:** Enter any Case ID (e.g. \`CMP-2026-RB-0021\`).\n* 🚨 **Overdue SLA Scans:** Ask *"Show overdue cases"* to prioritize pending investigations.\n* ⚡ **Cross-Bureau Intelligence:** Ask *"Check match alerts"* to view detected institutional overlaps.\n* 📊 **Workload Analytics:** Ask *"Show workload statistics"* across AICTE cells.`,
         suggestions: ['Show Overdue Cases', 'Check Match Intelligence', 'Track CMP-2026-PGRC-0010', 'Show Bureau Workload'],
         intent: 'OFFICER_GREETING'
       };
     }
 
     return {
-      answer: `Namaste! 🙏 Welcome to **AICTE Samadhan Sahayak**.\n\nI am here to help students, parents, faculty, and citizens navigate AICTE grievance resolution. You can ask me:\n* 🔍 **Track a Case:** Type your Case ID (e.g. \`CMP-2026-PGRC-0010\`).\n* 💰 **Fee Refund Norms:** Understand cut-off dates and deduction limits.\n* 🛡️ **Anti-Ragging Support:** Helplines and disciplinary protocols.\n* 📜 **Certificate Withholding:** AICTE rules preventing document retention.\n* 📝 **Filing Guidance:** Step-by-step assistance in lodging a grievance.`,
+      answer: `Namaste! 🙏 Welcome to **AICTE samadhanX Sahayak**.\n\nI am here to help students, parents, faculty, and citizens navigate AICTE grievance resolution. You can ask me:\n* 🔍 **Track a Case:** Type your Case ID (e.g. \`CMP-2026-PGRC-0010\`).\n* 💰 **Fee Refund Norms:** Understand cut-off dates and deduction limits.\n* 🛡️ **Anti-Ragging Support:** Helplines and disciplinary protocols.\n* 📜 **Certificate Withholding:** AICTE rules preventing document retention.\n* 📝 **Filing Guidance:** Step-by-step assistance in lodging a grievance.`,
       suggestions: ['Track CMP-2026-PGRC-0010', 'Fee Refund Rules', 'Anti-Ragging Rules', 'How to File a Complaint?'],
       intent: 'CITIZEN_GREETING'
     };

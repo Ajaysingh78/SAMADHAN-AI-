@@ -1,7 +1,7 @@
 {
-  "name": "samadhan-server",
+  "name": "samadhanX-server",
   "version": "1.0.0",
-  "description": "SAMADHAN Backend API",
+  "description": "samadhanX Backend API",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

@@ -6,7 +6,7 @@ const app = require('../src/app');
 test('GET / returns API service information', async () => {
   const res = await request(app).get('/');
   assert.strictEqual(res.status, 200);
-  assert.strictEqual(res.body.service, 'SAMADHAN Case Intelligence Platform API');
+  assert.strictEqual(res.body.service, 'samadhanX Case Intelligence Platform API');
   assert.strictEqual(res.body.version, '1.0.0');
 });
 
@@ -15,7 +15,7 @@ test('GET /api/v1/health returns healthy status and standard contract envelope',
   assert.strictEqual(res.status, 200);
   assert.strictEqual(res.body.success, true);
   assert.strictEqual(res.body.data.status, 'healthy');
-  assert.strictEqual(res.body.data.service, 'samadhan-api');
+  assert.strictEqual(res.body.data.service, 'samadhanX-api');
   assert.ok(typeof res.body.data.uptimeSeconds === 'number');
   assert.ok(res.body.data.database !== undefined);
 });

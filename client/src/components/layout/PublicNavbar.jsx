@@ -20,7 +20,7 @@ export function PublicNavbar() {
               </div>
               <div className="text-left">
                 <span className="block text-base font-extrabold tracking-tight text-slate-900">
-                  SAMADHAN
+                  samadhanX
                 </span>
                 <span className="block text-[10px] uppercase font-semibold tracking-wider text-slate-500 -mt-1">
                   AICTE Case Intelligence

@@ -19,7 +19,7 @@ export function AlertReviewModal({ alert, isOpen, onClose, onReviewed }) {
     try {
       setLoading(true);
       setError(null);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch(`/api/v1/intelligence/alerts/${alert.id}/review`, {
         method: 'PATCH',
         headers: {
@@ -121,11 +121,10 @@ export function AlertReviewModal({ alert, isOpen, onClose, onReviewed }) {
             <button
               type="button"
               onClick={() => setStatus('CONFIRMED')}
-              className={`p-3 rounded-lg border text-left transition-all ${
-                status === 'CONFIRMED'
+              className={`p-3 rounded-lg border text-left transition-all ${status === 'CONFIRMED'
                   ? 'border-emerald-600 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 ring-2 ring-emerald-500/20'
                   : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
-              }`}
+                }`}
             >
               <div className="font-semibold text-sm">Confirm Relationship</div>
               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -136,11 +135,10 @@ export function AlertReviewModal({ alert, isOpen, onClose, onReviewed }) {
             <button
               type="button"
               onClick={() => setStatus('DISMISSED')}
-              className={`p-3 rounded-lg border text-left transition-all ${
-                status === 'DISMISSED'
+              className={`p-3 rounded-lg border text-left transition-all ${status === 'DISMISSED'
                   ? 'border-rose-600 bg-rose-50/70 dark:bg-rose-950/40 text-rose-900 dark:text-rose-200 ring-2 ring-rose-500/20'
                   : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
-              }`}
+                }`}
             >
               <div className="font-semibold text-sm">Dismiss Match</div>
               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">

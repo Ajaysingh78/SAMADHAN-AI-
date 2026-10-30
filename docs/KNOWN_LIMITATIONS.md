@@ -1,6 +1,6 @@
-# SAMADHAN — Known Limitations & Operational Boundaries
+# samadhanX — Known Limitations & Operational Boundaries
 
-This document provides transparent, factual disclosure of the current operational boundaries, architectural assumptions, and prototype scope for **SAMADHAN (SIH26264)**.
+This document provides transparent, factual disclosure of the current operational boundaries, architectural assumptions, and prototype scope for **samadhanX (SIH26264)**.
 
 ---
 

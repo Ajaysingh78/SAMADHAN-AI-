@@ -36,7 +36,7 @@ export function WorkflowSection() {
           Operational Lifecycle
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-1">
-          How SAMADHAN Coordinates Action
+          How samadhanX Coordinates Action
         </h2>
         <p className="text-sm text-slate-600 mt-2">
           A closed-loop, accountable workflow ensuring no grievance falls through bureaucratic cracks or triggers redundant inquiries.

@@ -18,7 +18,7 @@ async function request(endpoint, options = {}) {
   const url = `${BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
 
   // Read auth token from localStorage if available (Phase 2 integration)
-  const token = localStorage.getItem('samadhan_token');
+  const token = localStorage.getItem('samadhanX_token');
 
   const headers = {
     'Content-Type': 'application/json',

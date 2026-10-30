@@ -52,7 +52,7 @@ app.use('/api/v1/chatbot', chatbotRoutes);
 // Root informational endpoint
 app.get('/', (req, res) => {
   res.json({
-    service: 'SAMADHAN Case Intelligence Platform API',
+    service: 'samadhanX Case Intelligence Platform API',
     version: '1.0.0',
     documentation: '/docs/API_CONTRACT.md',
     healthEndpoint: '/api/v1/health'

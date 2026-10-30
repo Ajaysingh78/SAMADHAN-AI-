@@ -1,4 +1,4 @@
-# SAMADHAN — Security & Authorization Architecture
+# samadhanX — Security & Authorization Architecture
 
 **Document Version:** 1.0.0  
 **Status:** Approved Foundation  

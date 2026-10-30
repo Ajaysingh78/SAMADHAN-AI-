@@ -163,7 +163,7 @@ async function seedInstitutionsAndComplaints() {
         action_type: 'CASE_REGISTERED',
         previous_status: null,
         new_status: createdCmp.status,
-        remarks: 'Case registered into SAMADHAN system and mapped to technical institution.',
+        remarks: 'Case registered into samadhanX system and mapped to technical institution.',
         performed_by: cmp.created_by
       });
 

@@ -10,10 +10,10 @@ export function PublicFooter() {
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center gap-2 text-white font-bold text-base">
               <ShieldCheck className="w-5 h-5 text-gov-400" />
-              <span>SAMADHAN</span>
+              <span>samadhanX</span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-md">
-              Cross-Bureau Case Intelligence & Coordination Platform engineered for Smart India Hackathon 2026 (SIH26264). 
+              Cross-Bureau Case Intelligence & Coordination Platform engineered for Smart India Hackathon 2026 (SIH26264).
               Provides single-source-of-truth monitoring, explainable cross-bureau overlap detection, and traceable administrative coordination across AICTE cells.
             </p>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-[11px] text-amber-300">
@@ -53,7 +53,7 @@ export function PublicFooter() {
 
         {/* Bottom Disclaimer */}
         <div className="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
-          <p>© 2026 SAMADHAN Team. All rights reserved.</p>
+          <p>© 2026 samadhanX Team. All rights reserved.</p>
           <p>
             Independent Academic & Hackathon Innovation Project. Not an official AICTE deployment.
           </p>

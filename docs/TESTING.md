@@ -1,4 +1,4 @@
-# SAMADHAN — Testing Strategy & Verification Plan
+# samadhanX — Testing Strategy & Verification Plan
 
 **Document Version:** 1.0.0  
 **Status:** Approved Foundation  

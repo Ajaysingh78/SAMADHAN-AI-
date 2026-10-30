@@ -1,5 +1,5 @@
 {
-  "name": "samadhan",
+  "name": "samadhanX",
   "version": "1.0.0",
   "description": "Cross-Bureau Case Intelligence & Coordination Platform (SIH26264)",
   "private": true,
@@ -21,6 +21,6 @@
     "case-intelligence",
     "sih2026"
   ],
-  "author": "SAMADHAN Team",
+  "author": "samadhanX Team",
   "license": "UNLICENSED"
 }

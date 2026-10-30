@@ -1,5 +1,5 @@
 /**
- * In-Memory Database Store for SAMADHAN
+ * In-Memory Database Store for samadhanX
  * Serves as a resilient storage adapter when external MySQL is offline or in test environments.
  */
 
@@ -85,8 +85,8 @@ class MemoryStore {
 
     if (search) {
       const q = search.toLowerCase();
-      list = list.filter(u => 
-        u.username.toLowerCase().includes(q) || 
+      list = list.filter(u =>
+        u.username.toLowerCase().includes(q) ||
         u.full_name.toLowerCase().includes(q) ||
         u.email.toLowerCase().includes(q)
       );
@@ -317,7 +317,7 @@ class MemoryStore {
   createOrUpdateMatchAlert(alertData) {
     const existing = Array.from(this.matchAlerts.values()).find(
       a => (a.source_complaint_id === alertData.source_complaint_id && a.candidate_complaint_id === alertData.candidate_complaint_id) ||
-           (a.source_complaint_id === alertData.candidate_complaint_id && a.candidate_complaint_id === alertData.source_complaint_id)
+        (a.source_complaint_id === alertData.candidate_complaint_id && a.candidate_complaint_id === alertData.source_complaint_id)
     );
 
     const now = new Date().toISOString();
@@ -407,7 +407,7 @@ class MemoryStore {
   isCaseLinked(id1, id2) {
     return Array.from(this.caseLinks.values()).some(
       l => (l.source_complaint_id === id1 && l.target_complaint_id === id2) ||
-           (l.source_complaint_id === id2 && l.target_complaint_id === id1)
+        (l.source_complaint_id === id2 && l.target_complaint_id === id1)
     );
   }
 

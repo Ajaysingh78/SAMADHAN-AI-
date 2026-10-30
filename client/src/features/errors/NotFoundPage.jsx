@@ -12,7 +12,7 @@ export function NotFoundPage() {
         </div>
         <h1 className="text-2xl font-bold text-slate-900">404 — Page Not Found</h1>
         <p className="text-sm text-slate-600">
-          The requested route does not exist or has been moved within the SAMADHAN portal.
+          The requested route does not exist or has been moved within the samadhanX portal.
         </p>
         <div className="pt-2">
           <Link to="/">

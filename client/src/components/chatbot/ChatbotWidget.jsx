@@ -24,7 +24,7 @@ export function ChatbotWidget() {
   const [input, setInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
   const [messages, setMessages] = useState(() => {
-    const saved = sessionStorage.getItem('samadhan_chat_history');
+    const saved = sessionStorage.getItem('samadhanX_chat_history');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -37,8 +37,8 @@ export function ChatbotWidget() {
         id: 'welcome-1',
         sender: 'bot',
         text: isAuthenticated
-          ? `Namaste **${user?.fullName || user?.username || 'Officer'}**! 🛡️\n\nI am your **SamadhanX Copilot**. How can I help you today?\n* Enter any Case ID (e.g. \`CMP-2026-PGRC-0010\`) for an instant operational dossier\n* Ask for **overdue cases** across your bureau scope\n* Review **cross-bureau match alerts** and potential overlaps`
-          : `Namaste! 🙏 Welcome to **AICTE Samadhan Sahayak**.\n\nI can help you:\n* 🔍 **Track your complaint status** (type e.g. \`CMP-2026-PGRC-0010\`)\n* 💰 Check **AICTE Fee Refund Directives** & deduction limits\n* 🛡️ Access **Anti-Ragging** emergency guidelines\n* 📜 Understand rules on **Certificate Retention**`,
+          ? `Namaste **${user?.fullName || user?.username || 'Officer'}**! 🛡️\n\nI am your **samadhanXX Copilot**. How can I help you today?\n* Enter any Case ID (e.g. \`CMP-2026-PGRC-0010\`) for an instant operational dossier\n* Ask for **overdue cases** across your bureau scope\n* Review **cross-bureau match alerts** and potential overlaps`
+          : `Namaste! 🙏 Welcome to **AICTE samadhanX Sahayak**.\n\nI can help you:\n* 🔍 **Track your complaint status** (type e.g. \`CMP-2026-PGRC-0010\`)\n* 💰 Check **AICTE Fee Refund Directives** & deduction limits\n* 🛡️ Access **Anti-Ragging** emergency guidelines\n* 📜 Understand rules on **Certificate Retention**`,
         suggestions: isAuthenticated
           ? ['Show Overdue Cases', 'Check Match Intelligence', 'Track CMP-2026-PGRC-0010', 'Show Bureau Workload']
           : ['Track CMP-2026-PGRC-0010', 'AICTE Fee Refund Rules', 'Anti-Ragging Guidelines', 'How to File a Complaint?'],
@@ -53,7 +53,7 @@ export function ChatbotWidget() {
   // Sync messages to session storage
   useEffect(() => {
     try {
-      sessionStorage.setItem('samadhan_chat_history', JSON.stringify(messages));
+      sessionStorage.setItem('samadhanX_chat_history', JSON.stringify(messages));
     } catch {
       // Ignore quota errors
     }
@@ -132,7 +132,7 @@ export function ChatbotWidget() {
       sender: 'bot',
       text: isAuthenticated
         ? `Chat cleared. Ready for your next query, **${user?.fullName || 'Officer'}**!`
-        : `Chat cleared. How can AICTE Samadhan Sahayak assist you today?`,
+        : `Chat cleared. How can AICTE samadhanX Sahayak assist you today?`,
       suggestions: isAuthenticated
         ? ['Show Overdue Cases', 'Check Match Intelligence', 'Track CMP-2026-PGRC-0010']
         : ['Track CMP-2026-PGRC-0010', 'AICTE Fee Refund Rules', 'Anti-Ragging Guidelines'],
@@ -264,7 +264,7 @@ export function ChatbotWidget() {
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <h3 className="font-bold text-sm tracking-tight text-white">Samadhan Sahayak</h3>
+                  <h3 className="font-bold text-sm tracking-tight text-white">samadhanX Sahayak</h3>
                   <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 font-medium px-1.5 py-0.2 rounded-full uppercase tracking-wider">
                     AI 2026
                   </span>
@@ -317,11 +317,10 @@ export function ChatbotWidget() {
                   )}
 
                   <div
-                    className={`rounded-2xl px-3.5 py-2.5 text-xs shadow-sm ${
-                      msg.sender === 'user'
+                    className={`rounded-2xl px-3.5 py-2.5 text-xs shadow-sm ${msg.sender === 'user'
                         ? 'bg-primary-600 text-white rounded-br-none'
                         : 'bg-white text-slate-800 border border-slate-200/80 rounded-bl-none'
-                    }`}
+                      }`}
                   >
                     {msg.sender === 'user' ? (
                       <p className="whitespace-pre-wrap leading-relaxed">{msg.text}</p>
@@ -418,7 +417,7 @@ export function ChatbotWidget() {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="group relative flex items-center gap-2.5 bg-gradient-to-r from-primary-600 via-primary-700 to-slate-900 text-white px-4 py-3 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 border border-white/20"
-        aria-label="Toggle AICTE Samadhan Sahayak Assistant"
+        aria-label="Toggle AICTE samadhanX Sahayak Assistant"
       >
         <span className="relative flex items-center justify-center">
           {isOpen ? (
@@ -432,7 +431,7 @@ export function ChatbotWidget() {
           )}
         </span>
         <span className="font-semibold text-xs tracking-tight">
-          {isOpen ? 'Close Sahayak' : isAuthenticated ? 'AI Copilot' : 'Samadhan Sahayak'}
+          {isOpen ? 'Close Sahayak' : isAuthenticated ? 'AI Copilot' : 'samadhanX Sahayak'}
         </span>
       </button>
     </div>

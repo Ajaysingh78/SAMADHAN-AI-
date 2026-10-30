@@ -6,7 +6,7 @@ const DEV_SEED_USERS = [
   {
     id: 'usr-admin-01',
     username: 'admin_sys',
-    email: 'admin.sys@samadhan.aicte.gov.in',
+    email: 'admin.sys@samadhanX.aicte.gov.in',
     password: 'Password@123',
     full_name: 'Dr. Amitabh Verma',
     role: ROLES.ADMIN,
@@ -17,7 +17,7 @@ const DEV_SEED_USERS = [
   {
     id: 'usr-rb-01',
     username: 'officer_rb',
-    email: 'rajesh.rb@samadhan.aicte.gov.in',
+    email: 'rajesh.rb@samadhanX.aicte.gov.in',
     password: 'Password@123',
     full_name: 'Rajesh Kumar (RB Officer)',
     role: ROLES.BUREAU_OFFICER,
@@ -28,7 +28,7 @@ const DEV_SEED_USERS = [
   {
     id: 'usr-pgrc-01',
     username: 'officer_pgrc',
-    email: 'sunita.pgrc@samadhan.aicte.gov.in',
+    email: 'sunita.pgrc@samadhanX.aicte.gov.in',
     password: 'Password@123',
     full_name: 'Sunita Sharma (PGRC Officer)',
     role: ROLES.BUREAU_OFFICER,
@@ -39,7 +39,7 @@ const DEV_SEED_USERS = [
   {
     id: 'usr-reg-01',
     username: 'officer_regional',
-    email: 'vikram.north@samadhan.aicte.gov.in',
+    email: 'vikram.north@samadhanX.aicte.gov.in',
     password: 'Password@123',
     full_name: 'Vikram Joshi (Regional Officer)',
     role: ROLES.REGIONAL_OFFICER,
@@ -50,7 +50,7 @@ const DEV_SEED_USERS = [
   {
     id: 'usr-senior-01',
     username: 'official_senior',
-    email: 'director.general@samadhan.aicte.gov.in',
+    email: 'director.general@samadhanX.aicte.gov.in',
     password: 'Password@123',
     full_name: 'Prof. Ramesh Chandra (Senior Official)',
     role: ROLES.SENIOR_OFFICIAL,
@@ -61,7 +61,7 @@ const DEV_SEED_USERS = [
   {
     id: 'usr-disabled-01',
     username: 'officer_disabled',
-    email: 'inactive.user@samadhan.aicte.gov.in',
+    email: 'inactive.user@samadhanX.aicte.gov.in',
     password: 'Password@123',
     full_name: 'Inactive Former Officer',
     role: ROLES.BUREAU_OFFICER,

@@ -10,19 +10,18 @@ const config = {
   port: parseInt(process.env.PORT, 10) || 5000,
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5174',
 
-
   db: {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT, 10) || 3306,
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'samadhan_db',
+    database: process.env.DB_NAME || 'samadhanX_db',
     connectionLimit: 10,
     queueLimit: 0
   },
 
   jwt: {
-    secret: process.env.JWT_SECRET || 'samadhan_dev_fallback_secret_key_32_chars_min',
+    secret: process.env.JWT_SECRET || 'samadhanX_dev_fallback_secret_key_32_chars_min',
     expiresIn: process.env.JWT_EXPIRES_IN || '8h'
   },
 

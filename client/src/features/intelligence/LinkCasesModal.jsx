@@ -19,7 +19,7 @@ export function LinkCasesModal({ sourceComplaint, candidateComplaint, matchAlert
     try {
       setLoading(true);
       setError(null);
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const res = await fetch('/api/v1/intelligence/links', {
         method: 'POST',
         headers: {

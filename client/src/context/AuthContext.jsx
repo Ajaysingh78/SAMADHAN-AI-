@@ -5,13 +5,13 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(() => localStorage.getItem('samadhan_token'));
+  const [token, setToken] = useState(() => localStorage.getItem('samadhanX_token'));
   const [isLoading, setIsLoading] = useState(true);
 
   // Restore session on app boot
   useEffect(() => {
     async function restoreSession() {
-      const storedToken = localStorage.getItem('samadhan_token');
+      const storedToken = localStorage.getItem('samadhanX_token');
       if (!storedToken) {
         setIsLoading(false);
         return;
@@ -24,13 +24,13 @@ export function AuthProvider({ children }) {
           setToken(storedToken);
         } else {
           // Token invalid or user not found
-          localStorage.removeItem('samadhan_token');
+          localStorage.removeItem('samadhanX_token');
           setToken(null);
           setUser(null);
         }
       } catch (err) {
         // Token expired or revoked
-        localStorage.removeItem('samadhan_token');
+        localStorage.removeItem('samadhanX_token');
         setToken(null);
         setUser(null);
       } finally {
@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
       const response = await apiClient.post('/auth/login', { username, password });
       if (response?.success && response?.data) {
         const { token: receivedToken, user: receivedUser } = response.data;
-        localStorage.setItem('samadhan_token', receivedToken);
+        localStorage.setItem('samadhanX_token', receivedToken);
         setToken(receivedToken);
         setUser(receivedUser);
         return { success: true, user: receivedUser };
@@ -68,7 +68,7 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.warn('Backend logout notification warning:', err.message);
     } finally {
-      localStorage.removeItem('samadhan_token');
+      localStorage.removeItem('samadhanX_token');
       setToken(null);
       setUser(null);
     }

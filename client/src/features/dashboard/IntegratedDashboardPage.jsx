@@ -10,13 +10,14 @@ import {
   GitFork,
   ShieldCheck,
   FileText,
-  ArrowUpRight,
   RefreshCw,
-  Download,
   AlertCircle,
   ExternalLink,
   ChevronRight,
-  Flame
+  Flame,
+  PieChart,
+  Layers,
+  ArrowUpRight
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../services/apiClient';
@@ -24,6 +25,13 @@ import Card, { CardHeader, CardTitle, CardContent } from '../../components/commo
 import Badge from '../../components/common/Badge';
 import Button from '../../components/common/Button';
 import AlertBanner from '../../components/common/AlertBanner';
+
+// Modern Visual Architecture Charts
+import SlaHealthGauge from './components/SlaHealthGauge';
+import CategoryDonutChart from './components/CategoryDonutChart';
+import TrendAreaChart from './components/TrendAreaChart';
+import BureauWorkloadBarChart from './components/BureauWorkloadBarChart';
+import WorkflowFlowDiagram from './components/WorkflowFlowDiagram';
 
 export function IntegratedDashboardPage() {
   const { user } = useAuth();
@@ -60,15 +68,16 @@ export function IntegratedDashboardPage() {
   if (loading) {
     return (
       <div className="space-y-6 text-left max-w-7xl mx-auto py-4">
-        <div className="h-24 bg-slate-100 rounded-lg animate-pulse" />
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="h-32 bg-slate-100 rounded-lg animate-pulse" />
+        <div className="h-28 bg-slate-100 rounded-2xl animate-pulse" />
+        <div className="h-44 bg-slate-900/10 rounded-2xl animate-pulse" />
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-3.5">
+          {[1, 2, 3, 4, 5, 6].map(i => (
+            <div key={i} className="h-28 bg-slate-100 rounded-xl animate-pulse" />
           ))}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="h-72 bg-slate-100 rounded-lg animate-pulse" />
-          <div className="h-72 bg-slate-100 rounded-lg animate-pulse" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="h-72 bg-slate-100 rounded-xl animate-pulse" />
+          <div className="h-72 bg-slate-100 rounded-xl animate-pulse" />
         </div>
       </div>
     );
@@ -88,29 +97,28 @@ export function IntegratedDashboardPage() {
   }
 
   const { counters, distributions, topInstitutions, recentEscalations, recentActions, scope, meta } = metrics;
-  const isSuperUser = user?.role === 'ADMIN' || user?.role === 'SENIOR_OFFICIAL';
 
   return (
-    <div className="space-y-6 text-left max-w-7xl mx-auto pb-12">
+    <div className="space-y-6 text-left max-w-7xl mx-auto pb-16">
       {/* 1. Header Banner & Scope Notice */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200/80 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="bg-white p-6 rounded-2xl border border-slate-200/90 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-gov-700">
-              AICTE Beta Intelligence Platform
+          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span className="text-xs font-bold uppercase tracking-wider text-primary-700">
+              AICTE National Oversight Platform
             </span>
             <Badge variant="primary" size="sm">
-              Phase 6 Integrated
+              Phase 6 Enterprise
             </Badge>
             <Badge variant={scope.isFiltered ? 'warning' : 'success'} size="sm" dot>
-              {scope.isFiltered ? `Scoped: ${scope.jurisdiction}` : 'Executive System Overview'}
+              {scope.isFiltered ? `Jurisdiction: ${scope.jurisdiction}` : 'Apex Executive System Overview'}
             </Badge>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            Integrated Operations & SLA Dashboard
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Integrated Operations & SLA Intelligence Dashboard
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
-            Consolidated real-time case tracking, SLA compliance monitoring, and cross-bureau coordination intelligence across AICTE Bureaus.
+            Consolidated real-time institutional grievance tracking, explainable cross-bureau matching, and statutory SLA compliance monitoring across AICTE Cells.
           </p>
         </div>
 
@@ -121,7 +129,7 @@ export function IntegratedDashboardPage() {
             onClick={fetchMetrics}
             leftIcon={<RefreshCw className="w-3.5 h-3.5 text-slate-500" />}
           >
-            Sync Data
+            Sync Live
           </Button>
           <Button
             variant="secondary"
@@ -129,7 +137,7 @@ export function IntegratedDashboardPage() {
             onClick={() => navigate('/app/reports')}
             leftIcon={<FileText className="w-3.5 h-3.5 text-slate-600" />}
           >
-            Advanced Search
+            Reports & CSV
           </Button>
           <Button
             variant="primary"
@@ -142,256 +150,110 @@ export function IntegratedDashboardPage() {
         </div>
       </div>
 
-      {/* Demonstration Data Alert Banner */}
-      <div className="bg-amber-50/70 border border-amber-200 rounded-lg p-3 text-xs text-amber-900 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0" />
-          <span>
-            <strong>Demonstration Prototype Environment:</strong> Metrics reflect real database queries over synthetic benchmark cases. AICTE SLA thresholds are configurable demo policies.
-          </span>
-        </div>
-        <span className="text-[11px] font-mono text-amber-700 flex-shrink-0">
-          Last Synced: {new Date(meta.generatedAt).toLocaleTimeString()}
-        </span>
-      </div>
+      {/* 2. Modern Visual Architecture Pipeline Flow */}
+      <WorkflowFlowDiagram counters={counters} />
 
-      {/* 2. Top-Level KPI Metric Cards */}
+      {/* 3. Top-Level KPI Metric Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
         {/* Total Cases */}
-        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-shadow">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all hover:-translate-y-0.5">
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Cases</span>
-            <FileText className="w-4 h-4 text-gov-600" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Cases</span>
+            <FileText className="w-4 h-4 text-primary-600" />
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">{counters.totalComplaints}</div>
-          <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-            <span>In current jurisdiction</span>
+          <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">{counters.totalComplaints}</div>
+          <div className="text-[11px] text-slate-500 mt-1">
+            <span>In active scope</span>
           </div>
         </div>
 
         {/* Pending Scrutiny */}
-        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-shadow">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all hover:-translate-y-0.5">
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Pending</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pending</span>
             <Clock className="w-4 h-4 text-sky-600" />
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-sky-700">{counters.pendingCases}</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-sky-700 font-mono">{counters.pendingCases}</div>
           <div className="text-[11px] text-slate-500 mt-1">
-            <span>Intake & assignment</span>
+            <span>Intake & Scrutiny</span>
           </div>
         </div>
 
         {/* Under Process */}
-        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-shadow">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all hover:-translate-y-0.5">
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">In Process</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">In Process</span>
             <TrendingUp className="w-4 h-4 text-indigo-600" />
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-indigo-700">{counters.underProcessCases}</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-indigo-700 font-mono">{counters.underProcessCases}</div>
           <div className="text-[11px] text-slate-500 mt-1">
-            <span>Active inquiry</span>
+            <span>Active Inquiry</span>
           </div>
         </div>
 
         {/* Overdue Cases */}
-        <div className={`p-4 rounded-xl border shadow-2xs hover:shadow-sm transition-shadow ${
+        <div className={`p-4 rounded-xl border shadow-2xs hover:shadow-sm transition-all hover:-translate-y-0.5 ${
           counters.overdueCases > 0 ? 'bg-red-50/50 border-red-200' : 'bg-white border-slate-200/90'
         }`}>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-red-700">Overdue SLA</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-red-700">Overdue SLA</span>
             <AlertTriangle className="w-4 h-4 text-red-600" />
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-red-700">{counters.overdueCases}</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-red-700 font-mono">{counters.overdueCases}</div>
           <div className="text-[11px] text-red-600 mt-1 font-medium">
-            <span>{counters.dueSoonCases} due within 3 days</span>
+            <span>{counters.dueSoonCases} nearing target</span>
           </div>
         </div>
 
         {/* Disposed Cases */}
-        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-shadow">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all hover:-translate-y-0.5">
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Disposed</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Disposed</span>
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-700">{counters.disposedCases}</div>
-          <div className="text-[11px] text-slate-500 mt-1 font-medium text-emerald-600">
+          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-700 font-mono">{counters.disposedCases}</div>
+          <div className="text-[11px] font-medium text-emerald-600 mt-1">
             <span>{counters.disposalRatePercentage}% resolution rate</span>
           </div>
         </div>
 
         {/* Cross-Bureau Linked */}
-        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-shadow">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all hover:-translate-y-0.5">
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coordinated</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Coordinated</span>
             <GitFork className="w-4 h-4 text-purple-600" />
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-purple-700">{counters.crossBureauLinkedCount}</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-purple-700 font-mono">{counters.crossBureauLinkedCount}</div>
           <div className="text-[11px] text-purple-600 mt-1 font-medium">
-            <span>{counters.pendingMatchReviewsCount} pending review</span>
+            <span>{counters.pendingMatchReviewsCount} match reviews</span>
           </div>
         </div>
       </div>
 
-      {/* 3. Operational Analysis: Bureau Workload & Ageing */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Bureau Workload Breakdown */}
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Bureau & Cell Workload Distribution</CardTitle>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Real-time inquiry allocation across AICTE handling divisions.
-                </p>
-              </div>
-              <Badge variant="outline" size="sm">
-                Live Counts
-              </Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {Object.entries(distributions.bureauWorkload).map(([bureauKey, data]) => {
-              const formattedName = bureauKey.replace(/_/g, ' ');
-              const percentage = counters.totalComplaints > 0
-                ? Math.round((data.total / counters.totalComplaints) * 100)
-                : 0;
-
-              return (
-                <div key={bureauKey} className="space-y-1.5 p-3 rounded-lg bg-slate-50/70 border border-slate-100">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-slate-800">{formattedName}</span>
-                    <div className="flex items-center gap-3 font-mono">
-                      <span className="text-slate-500">Pending: <strong>{data.pending}</strong></span>
-                      <span className="text-indigo-600">Active: <strong>{data.underProcess}</strong></span>
-                      <span className="text-emerald-600">Disposed: <strong>{data.disposed}</strong></span>
-                      {data.overdue > 0 && (
-                        <span className="text-red-600 font-bold">Overdue: {data.overdue}</span>
-                      )}
-                      <span className="font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200">
-                        Total: {data.total} ({percentage}%)
-                      </span>
-                    </div>
-                  </div>
-                  {/* Progress bar */}
-                  <div className="w-full h-2.5 bg-slate-200/80 rounded-full overflow-hidden flex">
-                    <div
-                      className="bg-sky-500 h-full"
-                      style={{ width: `${data.total > 0 ? (data.pending / data.total) * 100 : 0}%` }}
-                      title={`Pending: ${data.pending}`}
-                    />
-                    <div
-                      className="bg-indigo-500 h-full"
-                      style={{ width: `${data.total > 0 ? (data.underProcess / data.total) * 100 : 0}%` }}
-                      title={`Under Process: ${data.underProcess}`}
-                    />
-                    <div
-                      className="bg-emerald-500 h-full"
-                      style={{ width: `${data.total > 0 ? (data.disposed / data.total) * 100 : 0}%` }}
-                      title={`Disposed: ${data.disposed}`}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-
-            <div className="flex items-center justify-center gap-6 pt-2 text-[11px] text-slate-500">
-              <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-sky-500 inline-block" /> Pending Intake
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 inline-block" /> Active Inquiry
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" /> Disposed
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Case Ageing Distribution */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Case Ageing Distribution</CardTitle>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Elapsed time since complaint registration.
-            </p>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-600">&lt; 15 Days (Fresh Intake)</span>
-                  <span className="font-semibold text-slate-900">{distributions.ageingDistribution.under15Days}</span>
-                </div>
-                <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div
-                    className="bg-emerald-500 h-full rounded-full"
-                    style={{
-                      width: `${counters.totalComplaints > 0 ? (distributions.ageingDistribution.under15Days / counters.totalComplaints) * 100 : 0}%`
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-600">15 – 30 Days (Active Review)</span>
-                  <span className="font-semibold text-slate-900">{distributions.ageingDistribution.between15And30Days}</span>
-                </div>
-                <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div
-                    className="bg-sky-500 h-full rounded-full"
-                    style={{
-                      width: `${counters.totalComplaints > 0 ? (distributions.ageingDistribution.between15And30Days / counters.totalComplaints) * 100 : 0}%`
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-600">30 – 60 Days (Approaching SLA)</span>
-                  <span className="font-semibold text-slate-900">{distributions.ageingDistribution.between30And60Days}</span>
-                </div>
-                <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div
-                    className="bg-amber-500 h-full rounded-full"
-                    style={{
-                      width: `${counters.totalComplaints > 0 ? (distributions.ageingDistribution.between30And60Days / counters.totalComplaints) * 100 : 0}%`
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-600">&gt; 60 Days (Requires Escalation)</span>
-                  <span className="font-semibold text-red-600">{distributions.ageingDistribution.over60Days}</span>
-                </div>
-                <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div
-                    className="bg-red-500 h-full rounded-full"
-                    style={{
-                      width: `${counters.totalComplaints > 0 ? (distributions.ageingDistribution.over60Days / counters.totalComplaints) * 100 : 0}%`
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-1">
-              <div className="font-semibold text-slate-800 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-gov-600" /> SLA Governance Notice
-              </div>
-              <p className="text-[11px] leading-relaxed">
-                Standard grievances target 30-day disposal. Inquiries exceeding 60 days are automatically surfaced for Senior Official review.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+      {/* 4. Advanced Visual Analytics Grid: Row 1 (SLA Gauge + Category Donut) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        <SlaHealthGauge
+          totalCases={counters.totalComplaints}
+          overdueCases={counters.overdueCases}
+          dueSoonCases={counters.dueSoonCases}
+          disposedCases={counters.disposedCases}
+        />
+        <CategoryDonutChart categoryBreakdown={distributions.categoryBreakdown} />
       </div>
 
-      {/* 4. Institutional Hotspots & Critical Escalations */}
+      {/* 5. Advanced Visual Analytics Grid: Row 2 (Influx Trend + Bureau Multi-Bar) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        <TrendAreaChart
+          totalCases={counters.totalComplaints}
+          disposedCases={counters.disposedCases}
+        />
+        <BureauWorkloadBarChart
+          bureauWorkload={distributions.bureauWorkload}
+          totalComplaints={counters.totalComplaints}
+        />
+      </div>
+
+      {/* 6. Institutional Hotspots & Critical Escalations */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Institutional Complaint Volumes */}
         <Card>
@@ -400,15 +262,15 @@ export function IntegratedDashboardPage() {
               <div>
                 <CardTitle>Top Institutional Complaint Concentrations</CardTitle>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Institutions with highest concurrent grievance volume across all Bureaus.
+                  Institutions with highest concurrent grievance volume across Bureaus.
                 </p>
               </div>
-              <Building2 className="w-4 h-4 text-gov-600" />
+              <Building2 className="w-4 h-4 text-primary-600" />
             </div>
           </CardHeader>
           <CardContent>
             {topInstitutions.length === 0 ? (
-              <p className="text-xs text-slate-500 italic py-4">No institutional complaint records found.</p>
+              <p className="text-xs text-slate-500 italic py-4">No institutional complaint records found in current scope.</p>
             ) : (
               <div className="divide-y divide-slate-100">
                 {topInstitutions.map((inst, idx) => (
@@ -431,8 +293,9 @@ export function IntegratedDashboardPage() {
                         {inst.count} {inst.count === 1 ? 'case' : 'cases'}
                       </Badge>
                       <button
+                        type="button"
                         onClick={() => navigate(`/app/institutions/${inst.institutionId}`)}
-                        className="text-gov-700 hover:text-gov-900 p-1 hover:bg-slate-100 rounded"
+                        className="text-primary-700 hover:text-primary-900 p-1 hover:bg-slate-100 rounded"
                         title="Open 360° Institution Dossier"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -462,7 +325,7 @@ export function IntegratedDashboardPage() {
             {recentEscalations.length === 0 ? (
               <div className="text-center py-6 text-slate-400 text-xs">
                 <CheckCircle2 className="w-8 h-8 mx-auto text-emerald-400 mb-2" />
-                No critical escalations currently active.
+                No critical escalations currently active in this scope.
               </div>
             ) : (
               <div className="space-y-2.5">
@@ -493,7 +356,7 @@ export function IntegratedDashboardPage() {
         </Card>
       </div>
 
-      {/* 5. Recent Chronological Timeline Actions */}
+      {/* 7. Recent Chronological Audit Trail */}
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -509,7 +372,7 @@ export function IntegratedDashboardPage() {
               onClick={() => navigate('/app/workflow')}
               className="text-xs"
             >
-              View Full Timeline
+              Full Operational Timeline
             </Button>
           </div>
         </CardHeader>

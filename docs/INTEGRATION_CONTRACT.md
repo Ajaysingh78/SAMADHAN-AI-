@@ -1,4 +1,4 @@
-# SAMADHAN — Integration Contract & Six-Phase Roadmap
+# samadhanX — Integration Contract & Six-Phase Roadmap
 
 **Document Version:** 1.0.0  
 **Status:** Approved Foundation  

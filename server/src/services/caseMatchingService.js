@@ -1,5 +1,5 @@
 /**
- * Explainable Cross-Bureau Case Matching Engine for SAMADHAN
+ * Explainable Cross-Bureau Case Matching Engine for samadhanX
  * Combines exact-identifier resolution, metadata heuristics, rule checks,
  * and pure Node.js TF-IDF / Cosine Similarity into evidence-based ranking signals.
  */

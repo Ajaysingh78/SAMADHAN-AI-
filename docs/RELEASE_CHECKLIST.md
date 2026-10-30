@@ -1,4 +1,4 @@
-# SAMADHAN — Release Readiness Checklist
+# samadhanX — Release Readiness Checklist
 
 **Target Release:** Beta Prototype Release 1.0.0 (SIH 2026 Evaluation)  
 **Verification Date:** October 29, 2026  
@@ -60,4 +60,4 @@
 
 ### **RECOMMENDATION: GO — PROTOTYPE READY**
 
-The SAMADHAN beta platform fulfills all requirements specified in SIH26264. All critical end-to-end user journeys are verified, secure, and documented. The codebase is approved for hackathon presentation and live evaluator demonstration.
+The samadhanX beta platform fulfills all requirements specified in SIH26264. All critical end-to-end user journeys are verified, secure, and documented. The codebase is approved for hackathon presentation and live evaluator demonstration.

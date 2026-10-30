@@ -1,5 +1,5 @@
 /**
- * AICTE Samadhan Chatbot & Assistant Routes
+ * AICTE samadhanX Chatbot & Assistant Routes
  * Endpoint: POST /api/v1/chatbot/query
  * Supports both Public Citizens (unauthenticated) and AICTE Officers (authenticated via Bearer JWT)
  */

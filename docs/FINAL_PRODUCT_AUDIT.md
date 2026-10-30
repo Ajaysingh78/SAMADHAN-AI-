@@ -1,6 +1,6 @@
-# SAMADHAN — Final Product Audit & Verification Report
+# samadhanX — Final Product Audit & Verification Report
 
-**Product Name:** SAMADHAN — Cross-Bureau Case Intelligence & Coordination Platform  
+**Product Name:** samadhanX — Cross-Bureau Case Intelligence & Coordination Platform  
 **Problem Statement ID:** SIH26264 (AICTE — Smart India Hackathon 2026)  
 **Audit Date:** October 29, 2026  
 **Auditor:** Lead Full-Stack Software Engineering, Security & QA Team  
@@ -10,7 +10,7 @@
 
 ## 1. Executive Summary
 
-This document presents the definitive, evidence-based product audit of **SAMADHAN**, conducted following the completion of all six development phases. 
+This document presents the definitive, evidence-based product audit of **samadhanX**, conducted following the completion of all six development phases. 
 
 The audit evaluated the codebase against real-world governance requirements for cross-bureau complaint monitoring across AICTE Bureaus and Cells (Regulation Bureau, PGRC, Approval Bureau, Regional Offices). All tests, builds, benchmarks, and security checks were executed directly against the active codebase without fabrication, simulation, or destructive operations.
 
@@ -39,10 +39,10 @@ The audit systematically examined:
 
 ## 3. Architecture & Verified Capabilities
 
-SAMADHAN is constructed as an integrated monolithic repository with clear separation:
+samadhanX is constructed as an integrated monolithic repository with clear separation:
 
 ```
-samadhan/
+samadhanX/
 ├── client/           # React.js SPA (Vite, React Router, TailwindCSS design tokens)
 ├── server/           # Node.js + Express.js REST API
 ├── docs/             # Master specifications, contracts, and audit documentation
@@ -122,7 +122,7 @@ The case intelligence matching pipeline combines three complementary signals:
 
 | Defect ID | Severity | Module | Description & Reproduction | Resolution Applied | Verification |
 |---|:---:|---|---|---|:---:|
-| **DEF-001** | **P2** | `ReportsPage.jsx` | In `ReportsPage.jsx`, the CSV export handler queried `localStorage.getItem('token')` instead of `'samadhan_token'`, causing 401 Unauthorized errors during direct downloads. | Changed token retrieval key to `'samadhan_token'` consistent with `AuthContext` and all other feature modules. | Client rebuilt cleanly; CSV export verified via API test `tests/reportsAndDashboard.test.js`. |
+| **DEF-001** | **P2** | `ReportsPage.jsx` | In `ReportsPage.jsx`, the CSV export handler queried `localStorage.getItem('token')` instead of `'samadhanX_token'`, causing 401 Unauthorized errors during direct downloads. | Changed token retrieval key to `'samadhanX_token'` consistent with `AuthContext` and all other feature modules. | Client rebuilt cleanly; CSV export verified via API test `tests/reportsAndDashboard.test.js`. |
 
 ---
 

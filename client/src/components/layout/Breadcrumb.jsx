@@ -7,7 +7,7 @@ export function Breadcrumb({ items = [] }) {
     <nav className="flex items-center text-xs text-slate-500 font-medium py-3 px-6 bg-white border-b border-slate-200">
       <Link to="/" className="flex items-center gap-1 hover:text-gov-700 transition-colors">
         <Home className="w-3.5 h-3.5" />
-        <span>SAMADHAN</span>
+        <span>samadhanX</span>
       </Link>
       {items.map((item, index) => {
         const isLast = index === items.length - 1;

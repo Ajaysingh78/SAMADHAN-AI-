@@ -17,7 +17,7 @@ async function startServer() {
 
   const server = app.listen(config.port, () => {
     console.log(`====================================================`);
-    console.log(` SAMADHAN Backend API running on port ${config.port}`);
+    console.log(` samadhanX Backend API running on port ${config.port}`);
     console.log(` Environment : ${config.env}`);
     console.log(` Healthcheck : http://localhost:${config.port}/api/v1/health`);
     console.log(` Allowed CORS: ${config.clientUrl}`);
@@ -25,7 +25,7 @@ async function startServer() {
   });
 
   const shutdown = () => {
-    console.log('Shutting down SAMADHAN API gracefully...');
+    console.log('Shutting down samadhanX API gracefully...');
     server.close(() => {
       console.log('Server closed.');
       process.exit(0);

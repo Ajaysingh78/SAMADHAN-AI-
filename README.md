@@ -1,4 +1,4 @@
-# SAMADHAN — Cross-Bureau Case Intelligence & Coordination Platform
+# samadhanX — Cross-Bureau Case Intelligence & Coordination Platform
 
 **Smart India Hackathon 2026**  
 **Problem Statement ID:** SIH26264  
@@ -10,7 +10,7 @@
 
 ## 1. Product Overview
 
-**SAMADHAN** is a centralized case-management and coordination platform designed to consolidate institution-related complaints across AICTE Bureaus/Cells (e.g., Regulation Bureau and Public Grievance Redressal Cell), maintain institution-wise complaint history, track case progress, identify potentially related cases, and support accountable follow-up through an auditable workflow.
+**samadhanX** is a centralized case-management and coordination platform designed to consolidate institution-related complaints across AICTE Bureaus/Cells (e.g., Regulation Bureau and Public Grievance Redressal Cell), maintain institution-wise complaint history, track case progress, identify potentially related cases, and support accountable follow-up through an auditable workflow.
 
 > **Crucial Governance Principle**:
 >
@@ -32,7 +32,7 @@
 ## 3. Repository Structure
 
 ```
-samadhan/
+samadhanX/
 ├── client/           # React.js frontend application
 ├── server/           # Node.js + Express.js backend API
 ├── docs/             # Architecture, security, API & integration specifications

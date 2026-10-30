@@ -51,7 +51,7 @@ export function LoginPage() {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-left relative overflow-hidden">
       {/* Background Pattern */}
-      <div 
+      <div
         className="absolute inset-0 opacity-5 pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(#ffffff 1px, transparent 1px)`,
@@ -70,7 +70,7 @@ export function LoginPage() {
             <ShieldCheck className="w-6 h-6 text-gov-300" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white tracking-tight">SAMADHAN</h1>
+            <h1 className="text-xl font-bold text-white tracking-tight">samadhanX</h1>
             <p className="text-xs text-slate-400">AICTE Case Intelligence & Governance Portal</p>
           </div>
         </div>

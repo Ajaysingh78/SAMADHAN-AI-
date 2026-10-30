@@ -165,7 +165,7 @@ export function ReportsPage() {
       if (startDate) params.append('startDate', startDate);
       if (endDate) params.append('endDate', endDate);
 
-      const token = localStorage.getItem('samadhan_token');
+      const token = localStorage.getItem('samadhanX_token');
       const response = await fetch(`/api/v1/reports/export-csv?${params.toString()}`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -181,7 +181,7 @@ export function ReportsPage() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `samadhan_cases_report_${new Date().toISOString().split('T')[0]}.csv`;
+      a.download = `samadhanX_cases_report_${new Date().toISOString().split('T')[0]}.csv`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -487,8 +487,8 @@ export function ReportsPage() {
                         <Badge
                           variant={
                             item.status === 'DISPOSED' ? 'success' :
-                            item.status === 'CLOSURE_REQUESTED' ? 'warning' :
-                            item.status === 'REOPENED' ? 'danger' : 'primary'
+                              item.status === 'CLOSURE_REQUESTED' ? 'warning' :
+                                item.status === 'REOPENED' ? 'danger' : 'primary'
                           }
                           size="sm"
                         >

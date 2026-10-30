@@ -1,6 +1,6 @@
-# SAMADHAN — Local Setup & Execution Guide
+# samadhanX — Local Setup & Execution Guide
 
-This document provides complete instructions to set up, configure, run, test, and safely reset the **SAMADHAN** platform locally.
+This document provides complete instructions to set up, configure, run, test, and safely reset the **samadhanX** platform locally.
 
 ---
 
@@ -11,7 +11,7 @@ Ensure your development environment meets the following minimum requirements:
 * **Node.js**: `v18.x` or higher (verified on `v22.16.0`)
 * **npm**: `v9.x` or higher (verified on `v10.9.2`)
 * **MySQL** (Optional for local demo): `v8.0` or higher
-  * *Note:* SAMADHAN incorporates an automatic dual-mode database engine. When MySQL is unavailable, the platform seamlessly boots using an isolated in-memory relational store pre-seeded with synthetic institutional data, ensuring zero-configuration local evaluation.
+  * *Note:* samadhanX incorporates an automatic dual-mode database engine. When MySQL is unavailable, the platform seamlessly boots using an isolated in-memory relational store pre-seeded with synthetic institutional data, ensuring zero-configuration local evaluation.
 * **Modern Web Browser**: Chrome, Edge, Firefox, or Safari
 
 ---
@@ -29,7 +29,7 @@ CLIENT_URL=http://localhost:5174
 
 
 # Security & Authentication
-JWT_SECRET=super_secret_samadhan_jwt_key_2026_sih
+JWT_SECRET=super_secret_samadhanX_jwt_key_2026_sih
 JWT_EXPIRES_IN=8h
 
 # Database Configuration (Optional MySQL)
@@ -37,7 +37,7 @@ DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=your_mysql_password
-DB_NAME=samadhan_db
+DB_NAME=samadhanX_db
 ```
 
 ### Client Configuration
@@ -68,7 +68,7 @@ If using MySQL 8.0 locally:
 
 1. Create the database:
    ```sql
-   CREATE DATABASE IF NOT EXISTS samadhan_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   CREATE DATABASE IF NOT EXISTS samadhanX_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
 2. Apply the ordered SQL migrations located in `server/src/db/migrations/`:
    * `001_initial_schema.sql` (Master users, institutions, complaints, case_actions, audit_logs)
@@ -120,7 +120,7 @@ npm run dev
 
 ## 7. Running the Automated Test Suite
 
-SAMADHAN includes a complete regression test suite covering all six phases:
+samadhanX includes a complete regression test suite covering all six phases:
 
 ```bash
 cd server

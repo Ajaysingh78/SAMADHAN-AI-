@@ -30,7 +30,7 @@ function generateToken(payload, expiresIn = config.jwt.expiresIn) {
   const jti = crypto.randomUUID();
   return jwt.sign({ ...payload, jti }, config.jwt.secret, {
     expiresIn,
-    issuer: 'samadhan-platform'
+    issuer: 'samadhanX-platform'
   });
 }
 
@@ -39,7 +39,7 @@ function generateToken(payload, expiresIn = config.jwt.expiresIn) {
  */
 function verifyToken(token) {
   return jwt.verify(token, config.jwt.secret, {
-    issuer: 'samadhan-platform'
+    issuer: 'samadhanX-platform'
   });
 }
 

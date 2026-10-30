@@ -13,7 +13,7 @@ router.get('/health', async (req, res) => {
     success: true,
     data: {
       status: 'healthy',
-      service: 'samadhan-api',
+      service: 'samadhanX-api',
       environment: config.env,
       timestamp: new Date().toISOString(),
       uptimeSeconds: Math.floor((new Date() - startTime) / 1000),

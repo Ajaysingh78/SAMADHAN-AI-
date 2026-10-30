@@ -33,7 +33,7 @@ export function AppHeader() {
           </div>
           <div className="text-left hidden sm:block">
             <span className="block text-sm font-extrabold text-slate-900 tracking-tight leading-none">
-              SAMADHAN
+              samadhanX
             </span>
             <span className="block text-[9px] uppercase font-semibold tracking-wider text-slate-400 mt-0.5">
               Cross-Bureau Portal

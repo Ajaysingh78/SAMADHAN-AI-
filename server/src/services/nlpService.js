@@ -1,5 +1,5 @@
 /**
- * NLP & Vector Similarity Service for SAMADHAN
+ * NLP & Vector Similarity Service for samadhanX
  * Pure Node.js implementation of text normalization, stemmer, TF-IDF,
  * Cosine Similarity, and key term extraction without external heavy native libraries.
  */

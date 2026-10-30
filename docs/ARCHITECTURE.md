@@ -1,4 +1,4 @@
-# SAMADHAN — System Architecture & Mind Map
+# samadhanX — System Architecture & Mind Map
 
 **Document Version:** 1.0.0  
 **Status:** Approved Foundation  
@@ -79,7 +79,7 @@
 ## 3. Master Mind Map
 
 ```
-SAMADHAN
+samadhanX
 |
 |-- A. Public Experience
 |   |-- Homepage & Landing Hero

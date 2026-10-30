@@ -1,4 +1,4 @@
-# SAMADHAN — Final Defect Remediation & Fix Log
+# samadhanX — Final Defect Remediation & Fix Log
 
 This document records all defects identified, remediated, and re-verified during the final product audit.
 
@@ -15,8 +15,8 @@ This document records all defects identified, remediated, and re-verified during
   2. Navigate to `/app/reports` (Search & Export Reports).
   3. Click "Export Filtered CSV".
   4. The request fails with HTTP 401 Unauthorized.
-* **Root Cause:** In `ReportsPage.jsx`, the download handler called `localStorage.getItem('token')`. However, the centralized authentication provider stores tokens under key `'samadhan_token'`. Consequently, `token` was `null`, sending an unauthenticated request.
-* **Fix Applied:** Changed `localStorage.getItem('token')` to `localStorage.getItem('samadhan_token')`, ensuring consistent token retrieval.
+* **Root Cause:** In `ReportsPage.jsx`, the download handler called `localStorage.getItem('token')`. However, the centralized authentication provider stores tokens under key `'samadhanX_token'`. Consequently, `token` was `null`, sending an unauthenticated request.
+* **Fix Applied:** Changed `localStorage.getItem('token')` to `localStorage.getItem('samadhanX_token')`, ensuring consistent token retrieval.
 * **Files Changed:** [`client/src/features/reports/ReportsPage.jsx`](file:///c:/Users/Hamada%20Salim%20G-Trd/SIH26264/client/src/features/reports/ReportsPage.jsx#L167)
 * **Regression Tests Executed:**
   * Rebuilt frontend production bundle (`npm run build` in `client`).

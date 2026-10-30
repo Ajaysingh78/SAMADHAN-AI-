@@ -1,6 +1,6 @@
-# SAMADHAN — PPT Change Log & Claim Verification
+# samadhanX — PPT Change Log & Claim Verification
 
-This document tracks all features and architectural capabilities claimed in the official **Smart India Hackathon 2026 Presentation (SIH26264)** for **SamadhanX**, mapping each claim to its engineering reality, implementation status, and verification evidence.
+This document tracks all features and architectural capabilities claimed in the official **Smart India Hackathon 2026 Presentation (SIH26264)** for **samadhanXX**, mapping each claim to its engineering reality, implementation status, and verification evidence.
 
 ---
 
