@@ -10,6 +10,8 @@ export function Button({
   className = '',
   type = 'button',
   icon: Icon,
+  leftIcon,
+  rightIcon,
   ...props
 }) {
   const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed rounded-md shadow-sm';
@@ -28,6 +30,13 @@ export function Button({
     lg: 'text-base px-5 py-2.5 gap-2.5'
   };
 
+  const renderIcon = (iconItem) => {
+    if (!iconItem) return null;
+    if (React.isValidElement(iconItem)) return iconItem;
+    const IconComp = iconItem;
+    return <IconComp className="w-4 h-4 text-current" />;
+  };
+
   return (
     <button
       type={type}
@@ -37,10 +46,11 @@ export function Button({
     >
       {isLoading ? (
         <Loader2 className="w-4 h-4 animate-spin text-current" />
-      ) : Icon ? (
-        <Icon className="w-4 h-4 text-current" />
-      ) : null}
-      <span>{children}</span>
+      ) : (
+        renderIcon(leftIcon) || (Icon ? <Icon className="w-4 h-4 text-current" /> : null)
+      )}
+      {children && <span>{children}</span>}
+      {!isLoading && renderIcon(rightIcon)}
     </button>
   );
 }

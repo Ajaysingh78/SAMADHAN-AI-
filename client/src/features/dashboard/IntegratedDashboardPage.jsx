@@ -38,10 +38,12 @@ export function IntegratedDashboardPage() {
     setError(null);
     try {
       const res = await apiClient.get('/reports/metrics');
-      if (res.data?.success) {
+      if (res?.success) {
+        setMetrics(res.data);
+      } else if (res?.data?.success) {
         setMetrics(res.data.data);
       } else {
-        setError(res.data?.error?.message || 'Failed to load dashboard metrics.');
+        setError(res?.error?.message || res?.data?.error?.message || 'Failed to load dashboard metrics.');
       }
     } catch (err) {
       console.error('[Dashboard] Error fetching metrics:', err);

@@ -110,13 +110,14 @@ export function ReportsPage() {
       if (endDate) params.append('endDate', endDate);
 
       const res = await apiClient.get(`/reports/search?${params.toString()}`);
-      if (res.data?.success) {
-        setItems(res.data.data.items || []);
-        setTotal(res.data.data.total || 0);
-        setPage(res.data.data.page || 1);
-        setTotalPages(res.data.data.totalPages || 1);
+      const payload = res?.success ? res.data : (res?.data?.success ? res.data.data : null);
+      if (payload) {
+        setItems(payload.items || []);
+        setTotal(payload.total || 0);
+        setPage(payload.page || 1);
+        setTotalPages(payload.totalPages || 1);
       } else {
-        setError(res.data?.error?.message || 'Failed to search records.');
+        setError(res?.error?.message || res?.data?.error?.message || 'Failed to search records.');
       }
     } catch (err) {
       console.error('[Reports] Search error:', err);

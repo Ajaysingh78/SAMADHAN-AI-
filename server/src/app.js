@@ -10,6 +10,7 @@ const scopedCasesRoutes = require('./routes/scopedCases');
 const intelligenceRoutes = require('./routes/caseIntelligence');
 const workflowRoutes = require('./routes/workflow');
 const reportsRoutes = require('./routes/reports');
+const chatbotRoutes = require('./routes/chatbot');
 const { seedDevelopmentUsers } = require('./db/seeds/001_seed_dev_users');
 const { seedInstitutionsAndComplaints } = require('./db/seeds/002_seed_dev_institutions_and_complaints');
 const errorHandler = require('./middleware/errorHandler');
@@ -45,6 +46,7 @@ app.use('/api/v1/cases', scopedCasesRoutes);
 app.use('/api/v1/intelligence', intelligenceRoutes);
 app.use('/api/v1/workflow', workflowRoutes);
 app.use('/api/v1/reports', reportsRoutes);
+app.use('/api/v1/chatbot', chatbotRoutes);
 
 
 // Root informational endpoint
